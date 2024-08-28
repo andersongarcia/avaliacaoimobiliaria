@@ -1,0 +1,45 @@
+<script>
+    $(function() {
+        function exibirNenhumSeVazio(){
+            if($("ul#listaFiltroAtivo li").size() == 0){
+                var linha = document.createElement('li');
+                linha.className = 'nenhum';
+                linha.innerHTML = 'Nenhum filtro ativo';
+                $("ul#listaFiltroAtivo").append(linha);
+            }
+        }
+        exibirNenhumSeVazio();
+        
+        $('.ui-icon-close', 'button').button();
+        $('.ui-icon-close').click(function(){
+            var linha = $(this).parent();
+            
+            $.post('{URL}/avaliacoes_filtros.php', 
+                { 
+                    acao: 'excluir', 
+                    imovel_id: '{ImovelId}',
+                    chave: $(this).find('input[name="filtroChave"]').val(),
+                    valor: $(this).find('input[name="filtroValor"]').val() 
+                },
+                function(data){
+                    linha.remove();
+                    $('#listaImoveis').html(data);
+                    exibirNenhumSeVazio();
+                }
+            );
+        });
+    });
+</script>
+<ul id="listaFiltroAtivo">
+    <!-- BEGIN filtro_ativo -->
+    <li>
+        <span class="ui-icon ui-icon-carat-1-e">&nbsp;&nbsp;&nbsp;</span>
+        <span class="rotulo">{Chave}:</span><span>{Valor}</span>
+        <span class="ui-icon ui-icon-close">
+            <input type="hidden" name="filtroChave" value="{FiltroChave}" />
+            <input type="hidden" name="filtroValor" value="{FiltroValor}" />
+            &nbsp;&nbsp;&nbsp;
+        </span>
+    </li>
+    <!-- END filtro_ativo -->
+</ul>

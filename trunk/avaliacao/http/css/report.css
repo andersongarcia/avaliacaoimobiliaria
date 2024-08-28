@@ -1,0 +1,56 @@
+/* 
+    Document   : report
+    Created on : 13/09/2011, 16:48:41
+    Author     : Anderson
+    Description:
+        Estilo dos relatórios de saída para impressão
+*/
+
+/* 
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+
+body {
+    font-size: 8px;
+}
+
+table.imovelDescription {
+    width: 600px;
+    margin-bottom: 3px;
+}
+
+table.imovelDescription tr {
+    border: 1px solid black;
+}
+
+.picture {
+    width: 170px;
+}
+
+table.imovelDescription tr td,
+table.imovelDescription div {
+    margin: 0px;
+    margin-right: 5px;
+    padding: 0px;
+}
+
+table.imovelDescription div span {
+    display: inline-block;
+    margin-right: 10px;
+    float: left;
+}
+
+span.label {
+    font-weight: bold;
+    display: inline;
+}
+
+h3 {
+    font-size: .9em;
+    color: #999;
+    padding: 0px;
+    margin: 0px;
+}
+
+.break { page-break-before: always; }

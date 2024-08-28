@@ -1,0 +1,101 @@
+<script>
+    $(function() {
+        $( "a, button", ".actions" ).button();
+   
+        $('.listagem').dataTable({
+            "bJQueryUI": true,
+            "bRetrieve": true,
+            "oLanguage": {
+                "sUrl": "language/pt_BR.txt"
+            },
+            "bStateSave": true,
+            "sPaginationType": "full_numbers"
+        });
+        
+        function incluir(linha){
+            var imovel_id = linha.find('td:first-child').text().trim();
+            $.post('{URL}/avaliacoes_actions.php',
+                {
+                    acao: 'inserir',
+                    imovel: imovel_id,
+                    avaliacao: '{AvaliacaoId}'
+                },
+                function(data){
+                    $('#listaSelecionados').html(data);
+                    linha.remove();
+                }
+            );
+        }
+        
+        $('.incluir').click(function(){
+            var linha = $(this).parent().parent().remove();
+            incluir(linha);
+            return false;
+        });
+        
+        $('#btAdicionarTodos').click(function(){
+            var imoveisSelecionados = [];
+            $('#tabelaElementosDePesquisa tbody tr').each(function(){
+                var imovel_id = $(this).find('td:first-child').text().trim();
+                imoveisSelecionados.push(imovel_id);
+            });
+            $.post('{URL}/avaliacoes_actions.php',
+                {
+                    acao: 'inserir_selecionados',
+                    imoveisSelecionados: imoveisSelecionados,
+                    avaliacao: '{AvaliacaoId}'
+                },
+                function(data){
+                    $('#listaSelecionados').html(data);
+                    var oSettings = $('#tabelaElementosDePesquisa').dataTable().fnSettings();
+                    var iTotalRecords = oSettings.fnRecordsTotal();
+                    for (i=0;i<=iTotalRecords;i++) {
+                        $('#tabelaElementosDePesquisa').dataTable().fnDeleteRow(0,null,true);
+                    }
+                    //$('#tabelaElementosDePesquisa tbody tr').remove();
+                }
+            );
+            
+            return false;
+        });
+        
+        $('#listaImoveis table tr').dblclick(function(){
+            clearSelection();
+        });
+    });
+</script>
+<div class="actions">
+    <button id="btAdicionarTodos">Adicionar Todos</button>
+</div>
+<table id="tabelaElementosDePesquisa" class="listagem">
+    <thead>
+        <tr>
+            <td width="30">&nbsp;&nbsp;</td>
+            <td>Tipo Im&oacute;vel</td>
+            <td> </td>
+            <td>Logradouro</td>
+            <td>Bairro</td>
+            <td>Munic&iacute;pio</td>
+            <td> </td>
+            <td width="80">Data</td>
+            <td width="120">Valor</td>
+            <td class="incluir"></td>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- BEGIN table_row --> 
+        <tr>
+            <td>{ID}</td>
+            <td>{TipoImovel}</td>
+            <td>{Modalidade}</td>
+            <td>{Logradouro}</td>
+            <td>{Bairro}</td>
+            <td>{Municipio}</td>
+            <td>{NaturezaValor}</td>
+            <td>{Data}</td>
+            <td>{Valor}</td>
+            <td class="actions incluir"><a class="incluir" href="{ID}" title="Incluir"><span class="ui-icon ui-icon-plusthick"></span></a></td>
+        </tr>
+        <!-- END table_row -->
+    </tbody>
+</table>

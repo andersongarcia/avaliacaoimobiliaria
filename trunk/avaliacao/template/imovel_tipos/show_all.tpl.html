@@ -1,0 +1,22 @@
+<script type="text/javascript" src="js/datatable_config.js"></script>
+
+<h1>Cadastro de Tipos de Im&oacute;veis</h1>
+<div class="actions">
+    <a href="tipos_imoveis.php?show=1">Novo</a>
+</div>
+<table class="listagem">
+    <thead>
+        <tr>
+            <td> &nbsp; Descri&ccedil;&atilde;o</td>
+            <td width="200"> &nbsp; Forma</td>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- BEGIN table_row --> 
+        <tr class="h" style="cursor: pointer;" onClick="window.location.href='tipos_imoveis.php?show=1&id={ID}'">
+            <td> &nbsp; {Descricao}</td>
+            <td> &nbsp; {Forma}</td>
+        </tr>
+        <!-- END table_row -->
+    </tbody>
+</table>

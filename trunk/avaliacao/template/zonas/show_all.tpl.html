@@ -1,0 +1,24 @@
+<script type="text/javascript" src="js/datatable_config.js"></script>
+
+<h1>Cadastro de Zonas</h1>
+<div class="actions">
+    <a href="zonas.php?show=1">Novo</a>
+</div>
+<table class="listagem">
+    <thead>
+        <tr>
+            <td width="100"> &nbsp; C&oacute;digo</td>
+            <td> &nbsp; Descri&ccedil;&atilde;o</td>
+            <td width="120"> &nbsp; Padr&atilde;o</td>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- BEGIN table_row --> 
+        <tr class="h" style="cursor: pointer;" onClick="window.location.href='zonas.php?show=1&id={ID}'">
+            <td> &nbsp; {Codigo}</td>
+            <td> &nbsp; {Descricao}</td>
+            <td> &nbsp; {Padrao}</td>
+        </tr>
+        <!-- END table_row -->
+    </tbody>
+</table>

@@ -1,0 +1,687 @@
+body {
+    font-family: 'lucida grande',verdana,helvetica,arial,sans-serif;
+    margin: 0;
+}
+
+.corpo {
+    width: 1200px;
+}
+
+#usuario {
+    position: relative;
+    float: right;
+    width: 300px;
+    text-align: right;
+    color: #aaa;
+    top: 2px;
+    right: 15px;
+}
+
+#usuario a {
+    text-decoration: none;
+    color: #0073EA;
+}
+
+#usuario a:hover {
+    color: #0033EE;
+}
+
+.ui-widget-content {
+    background: #eee;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    border: 1px solid #bbb;
+}
+
+input[type='text'],input[type='radio'],input[type='password'], select, .ui-autocomplete-input {
+    background: #eee;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    border: 1px solid #bbb;
+    padding: 3px;
+    height: 30px;
+}
+
+input[type="radio"], input[type="checkbox"] {
+    vertical-align: middle;
+    margin: 0;
+    margin-left: 5px;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    padding-top: 3px;
+}
+
+label.option {
+    display: inline;
+    padding: 2px 5px;
+    vertical-align: middle;
+    font-weight: normal;
+}
+
+.newForm div {
+    float: left;
+    margin-bottom: 5px;
+}
+
+.inline {
+    display: inline;
+}
+
+.clear {
+    clear: both;
+}
+
+
+textarea {
+    background: #eee;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    border: 1px solid #bbb;
+    padding: 5px;
+}
+
+.botao {
+    cursor: pointer;
+}
+
+.botao:hover {
+    background: #ddd;
+    border: 1px solid #aaa;
+}
+
+.topo {
+    float: left;
+    width: 100%;
+    height: 30px;
+    line-height: 30px;
+    background: #ddd;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.menu {
+    float: left;
+    width: 100%;
+    background: #f1f1f1;
+    border-bottom: 1px solid black;
+    z-index: 10;
+}
+
+.conteudo {
+    float: left;
+    width: 100%;
+    min-height: 400px;
+    padding-top: 10px;
+    border-left: 1px solid lightgray;
+    border-right: 1px solid lightgray;
+    border-bottom: 1px solid lightgray;
+}
+
+.allHeader {
+    width: 1200px;
+}
+
+.allHeaderBack {
+    float: left;
+    width: 100%;
+    border-left: 1px solid lightgray;
+    border-right: 1px solid lightgray;
+}
+
+.new {
+    /*background: green;*/
+    background: #0073EA;
+    color: white;
+}
+
+.back {
+   background: blue;
+   color: white;
+}
+
+.del {
+    background: red;
+    color: white;
+}
+
+.add {
+    width: 80px; 
+    height: 20px;
+    display: block;
+    float: left;
+    text-align: center; 
+    border-bottom: 1px solid #ddd; 
+    border-top: 1px solid #ddd; 
+    border-left: 3px solid #fff;
+    border-right: 3px solid #fff;
+}
+
+.add a{
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.add a:hover {
+    color: #ccc;
+}
+
+td.label {
+    width: 220px;
+    text-align: right;
+}
+
+#selecao {
+    width: 100%;
+    border: 1px solid grey;
+    margin-bottom: 2px;
+    height: 30px;
+}
+
+#selecao table#form2 td{
+    height: 30px;
+    line-height: 30px;
+    vertical-align: middle;
+    font-size: 14px;
+}
+
+.selecionada td {
+    color: white;
+    background: #444;
+}
+
+table#form td#formValor{
+    text-align: right;
+}
+/*
+table td#titulo, h1 {
+    font-size: 16px;
+    color: #666;
+    font-weight: bold;
+    padding-left: 10px;
+    text-align: left;
+}
+
+table#form td {
+    padding: 4px;
+    line-height: 20px;
+    vertical-align: middle;
+}
+
+table#form a {
+    text-decoration: none;
+    color: #0073EA;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+table#form a:hover {
+    color: #FF0084;
+}*/
+
+.newForm a {
+    text-decoration: none;
+    /*color: green;*/
+    color: #0073EA;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.newForm a:hover {
+    /*color: limegreen;*/
+    color: #FF0084;
+}
+
+table#melhoramentos td {
+    line-height: 30px;
+    height: 30px;
+}
+
+/*table#form td a.excluir {
+    color: red;
+}
+
+table#form td a.excluir:hover {
+    color: tomato;
+}
+
+table#form td a.alterar {
+    color: #0073EA;
+}
+
+table#form td a.alterar:hover {
+    color: #FF0084;
+}
+
+table#form tr.lineTop td {
+    font-weight: bold;
+    background: #eee;
+}
+
+table#form tr.h:hover {
+    background: #f6f6f6;
+}
+
+table#form tr.h td {
+    border-bottom: 1px solid #ddd;
+}*/
+
+#dialog label {
+    display: block;
+}
+#dialog input {
+    width: 95%;
+}
+
+/* Menu */
+
+/* Menu teste */
+ul.topnav {
+	list-style: none;
+	padding: 0px;
+	margin: 0;
+	float: left;
+	/*background: #222;*/
+	/*background: rgba(0,0,0,0.05); /*url(../images/transparente.png) repeat;*/
+}
+ul.topnav li {
+	float: left;
+	margin: 0;
+	padding: 0 5px 0 5px;
+	position: relative; /*--Declare X and Y axis base for sub navigation--*/
+}
+ul.topnav li a{
+	padding: 5px 5px;
+	color: #000;
+	display: block;
+	text-decoration: none;
+	float: left;
+	cursor: pointer;
+}
+ul.topnav li a:hover{
+	background: #eee;/*url(../images/topnav_hover.png) no-repeat center top;*/
+        color: #666;
+}
+ul.topnav li span { /*--Drop down trigger styles--*/
+	width: 17px;
+	height: 30px;
+	float: left;
+	background: url(../images/subnav_btn.gif) no-repeat center top;
+}
+ul.topnav li span.subhover {background-position: center bottom; cursor: pointer;} /*--Hover effect for trigger--*/
+ul.topnav li ul.subnav {
+	list-style: none;
+	position: absolute; /*--Important - Keeps subnav from affecting main navigation flow--*/
+	left: 0; top: 29px;
+	/*background: #333;*/
+	margin: 0; padding: 0;
+	display: none;
+	float: left;
+	/*width: 170px;*/
+	border-bottom: 1px solid #999;
+        border-left: 1px solid #999;
+        border-right: 1px solid #999;
+        z-index: 10;
+}
+ul.topnav li ul.subnav li{
+	margin: 0; padding: 0;
+	border-top: 1px solid #999; /*--Create bevel effect--*/
+	/*border-bottom: 1px solid #444; /*--Create bevel effect--*/
+	clear: both;
+	/*width: 170px;*/
+	background: url(../images/dropdown_linkbg.gif) no-repeat 10px center;
+}
+html ul.topnav li ul.subnav li a {
+	float: left;
+	width: 190px;
+	background: #f6f6f6; /*rgba(0,0,0,0.1);/*url(../images/transparente.png) repeat 10px center;*/
+	padding-left: 10px;
+}
+html ul.topnav li ul.subnav li a:hover { /*--Hover effect for subnav links--*/
+	background: #eee; /*rgba(0,0,0,0.2); /*url(../images/transparente2.png) repeat 10px center;*/
+}
+
+table#imovelDescription {
+    width: 1200px;
+    border: 1px solid black;
+}
+
+td#picture {
+    width: 440px;
+    background: url(../files/semImagem.png) center center no-repeat;
+}
+
+div#picture {
+    margin-top: 15px;
+    width: 220px;
+    /*background: url(../files/semImagem.png) center center no-repeat;*/
+}
+
+table#imovelDescription td {
+    padding: 2px;
+    margin: 2px;
+}
+
+table#imovelDescription td td {
+    padding: 0px;
+}
+
+.confirmaExclusao {
+    background: red;
+    width: 940px;
+    color: white;
+    border: 2px solid black;
+    padding: 10px;
+}
+
+.confirmaExclusao a {
+    font-weight: bold;
+    color: white;
+}
+
+.foto {
+    width: 100%;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+#fotoForm {
+    border: 1px solid black;
+    padding: 2px;
+    width: 220px; 
+    float: left;
+}
+
+ul.options {
+    margin: 0px;
+    padding: 0px;
+}
+
+ul.options li {
+    margin: 0px;
+    margin-right: 20px;
+    display: inline;
+    list-style: none;
+}
+
+div.options {
+    display: block;
+    width: 100%;
+    height: 52px;
+    line-height: 52px;
+}
+
+div.actions {
+    right: 10px;
+    float: left;
+    margin-top: -15px;
+    padding: 5px;
+    text-align: right; 
+    display: block;
+    width: 98%;
+    z-index: 0;
+}
+
+div.actions div#RadioModalidade {
+    float: left;
+    padding-left: 350px;
+}
+
+div.subactions {
+    position: static;
+    text-align: center;
+    margin: 0;
+}
+
+td.actions {
+    width: 50px;
+}
+
+h1 {
+    font-size: 16px;
+    color: #666;
+    font-weight: bold;
+    padding-left: 10px;
+    text-align: left;
+    margin: 0px;
+}
+
+#divValor {
+    vertical-align: middle;
+}
+#divDataValor {
+}
+
+#divValor input {
+    font-size: 1.2em;
+    color: red;
+    font-weight: bold;
+}
+
+.valor, .medida, .medida2, .medida3, .inteiro, .location{
+    text-align: right;
+}
+
+.single {
+    height: 50px;
+    line-height: 50px;
+}
+
+ul#items {
+    margin: 0px;
+    padding: 0px;
+}
+
+ul.items li {
+    display: block;
+}
+
+ul.items li label {
+    padding-left: 5px;    
+}
+
+.error {
+    color: #F00;
+    font-weight: bold;
+}
+
+.success {
+    color: #0F0;
+    font-weight: bold;
+}
+
+#formLogin {
+    width: 300px;
+    height: 500px;
+    margin: 0 auto;
+    padding-top: 100px;
+    text-align: left;
+}
+
+#formLogin div div {
+    padding: 10px;    
+    width: 92%;
+}
+
+#formLogin div div input[type='text'], #formLogin div div input[type='password'] {
+    width: 100%;
+}
+
+#formLogin div div.actions {
+    padding: 0px;
+}
+
+/* Quadro */
+
+
+.quadro
+{
+    margin: 0px 0px 0px 0px;
+    border: #3c5a86 1px dashed;
+    padding: 5px;
+    color: #000000;
+    float: left;
+    width: 99%;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    height: auto;
+    overflow: visible;
+}
+
+.quadro h2
+{
+    margin: 0px 0px -12px 5px;
+    position: relative;
+    top: -12px;
+    border: #3c5a86 1px solid;
+    padding-top: 3px;
+    padding-bottom: 2px;
+    padding-left: 5px;
+    padding-right: 5px;
+    font-size: 12px;
+    font-weight: bold;
+    display: inline;
+    background-color: #EEEEEE;
+    float: left;
+}
+
+.quadro div {
+    /*float: left;*/
+}
+
+.quadro block_1,
+.quadro block_2,
+.quadro block_3,
+.quadro block_4,
+.quadro block_5, 
+.quadro block_6,
+.quadro .block_12 {
+    margin: 5px 0px;
+}
+
+.quadro .block_1 {
+    width: 87.5px;
+}
+
+.quadro .block_2 {
+    width: 185px;
+}
+
+.quadro .block_3 {
+    width: 285px;
+}
+
+.quadro .block_4 {
+    width: 380px;
+}
+
+.quadro .block_5 {
+    width: 575px;
+}
+
+.quadro .block_6 {
+    width: 580px;
+}
+
+.quadro .block_7 {
+    width: 7700px;
+}
+
+.quadro .block_12 {
+    width: 1170px;
+}
+
+/* Default style definitions for JQuery File Upload Plugin by RonnieSan v1.5.0 */
+.fileUploadQueueItem {
+	font: 11px Verdana, Geneva, sans-serif;
+	background-color: #F5F5F5;
+	border: 2px solid #ddd;
+	margin-top: 5px;
+	padding: 5px;
+	width: 270px;
+}
+.fileUploadQueueItem .cancel {
+	float: right;
+}
+.fileUploadProgress {
+	background-color: #FFFFFF;
+	border-top: 1px solid #808080;
+	border-left: 1px solid #808080;
+	border-right: 1px solid #C5C5C5;
+	border-bottom: 1px solid #C5C5C5;
+	margin-top: 5px;
+	width: 100%;
+}
+.fileUploadProgressBar {
+	background-color: #0099FF;
+}
+
+#quadroFiltro div {
+        display: block;
+        margin-bottom: 5px;
+        text-align: left;
+}
+
+#filtroSelecao select {
+        display: block;
+        width: 100%;
+}
+
+#filtroCampo input {
+    width: auto;
+}
+
+#filtroCampo input.medida {
+    width: 50px;
+}
+
+#filtroAtivo {
+    width: 100%;
+}
+
+#filtroAtivo ul li {
+    display: list-item;
+    list-style: none;
+    text-align: left;
+    margin: 0px;
+}
+
+#filtroAtivo ul li span {
+    display: inline;
+    float: left;
+}
+
+#filtroAtivo ul li span.ui-icon-carat-1-e {
+    clear: both;
+}
+
+#filtroAtivo ul li span.rotulo {
+    font-weight: bold;
+    width: 120px!important;
+}
+
+#filtroAtivo ul li span.ui-icon-close {
+    float: right;
+    margin-right: 5px;
+    cursor: pointer;
+}
+
+#filtroAtivo ul li.nenhum {
+    color: #aaa;
+    font-style: italic;
+    text-align: center;
+    width: 100%!important;
+}
+
+
+/* Validação de formulário */
+input.error { background-color: #FFDDDD; }
+label.error { display: none!important; }

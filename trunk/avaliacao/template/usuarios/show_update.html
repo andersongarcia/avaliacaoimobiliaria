@@ -1,0 +1,170 @@
+ï»¿<script>
+    $(function() {
+
+        $("#btAlterarSenha").click(function(){
+            $( "#alterarSenha" ).dialog( "open" );
+        });
+        
+        $("#btAlterarDados").click(function(){
+            $( "#alterarDados" ).dialog( "open" );
+        });
+
+        $( "#alterarSenha" ).dialog({
+            resizable: false,
+            modal: true,
+            width: 450,
+            autoOpen: false,
+            buttons: {
+                "Alterar Senha": function() {
+                    if ($("#liberado").val() == '1') {
+                        $("#formAlterarSenha").submit();
+                    } else {
+                        alert("Senha atual inválida!");
+                        $("#senha_atual").focus();
+                    }
+                },
+                Cancel: function() {
+                    $( this ).dialog( "close" );
+                }
+            }
+        });
+
+        $( "#alterarDados" ).dialog({
+            resizable: false,
+            modal: true,
+            width: 450,
+            autoOpen: false,
+            buttons: {
+                "Alterar": function() {
+                    $("#formAlterarDados").submit();
+                },
+                Cancel: function() {
+                    $( this ).dialog( "close" );
+                }
+            }
+        });
+        
+        $("#senha_atual").keyup(function(){
+            $.post("actions.php",
+            {
+                senha: this.value,
+                verificarSenha: true,
+                id: {ID}
+            },
+            function(data) {
+                if (data == "OK")
+                    $("#liberado").val(1);
+                else
+                    $("#liberado").val(0);
+            },
+            'html');
+        });
+        
+        $('#formAlterarDados').validate({
+            rules:{
+                nome:{
+                    required: true,
+                    minlength: 3,
+                    maxlength: 60
+                },
+                email: {
+                    required: true,
+                    email: true
+                }
+            },
+            messages:{
+                nome:{
+                    required: "O campo nome é obrigatorio.",
+                    minlength: "O campo nome deve conter no mínimo 3 caracteres.",
+                    minlength: "O campo nome deve conter no máximo 60 caracteres."
+                },
+                email: {
+                    required: "O campo email é obrigatorio.",
+                    email: "O campo email deve conter um email válido."
+                }
+            }
+ 
+        });
+        
+        $('#formAlterarSenha').validate({
+            rules:{
+                senha_atual:{
+                    required: true,
+                    minlength: 4,
+                    maxlength: 14
+                },
+                nova_senha:{
+                    required: true,
+                    minlength: 4,
+                    maxlength: 14
+                },
+                nova_senha2:{
+                    equalTo: "#nova_senha"
+                }
+            },
+            messages:{
+                senha_atual:{
+                    required: "O campo senha atual é obrigatorio.",
+                    minlength: "O campo nome deve conter no mínimo 4 caracteres.",
+                    maxlength: "O campo nome deve conter no máximo 14 caracteres."
+                },
+                nova_senha: {
+                    required: "O campo nova senha é obrigatorio.",
+                    minlength: "O campo nome deve conter no mínimo 4 caracteres.",
+                    maxlength: "O campo nome deve conter no máximo 14 caracteres."
+                },
+                nova_senha2:{
+                    required: "O campo confirma&ccedil;&atilde;o de senha é obrigatorio.",
+                    equalTo: "Esse campo deve ser identico ao campo nova senha."
+                }
+            }
+ 
+        });
+        
+    });
+</script>
+
+<h1>Meus dados</h1>
+
+<div style="padding-left: 50px; padding-right: 50px; padding-top: 30px;">
+    <div class="quadro" style="margin-bottom: 30px;">
+        <h2>Meus dados</h2>
+        <br />
+        <table><tr><td align="left">
+        <label for="nome">Nome</label>
+        <input type="text" disabled="true" name="nome" value="{Nome}" size="50" />
+        <label for="email">E-mail</label>
+        <input type="text" disabled="true" name="email" value="{Email}" size="50" />
+        </td></tr></table>
+        <button id="btAlterarDados">Alterar dados</button>
+    </div>
+    <div class="quadro" style="margin-bottom: 30px;">
+        <h2>Senha</h2>
+        <br />
+        <button id="btAlterarSenha">Alterar senha</button>
+    </div>
+</div>
+<input type="hidden" name="liberado" id="liberado" value="0" />
+<div id="alterarSenha" title="Alterar Senha">
+    <p>
+        <form id="formAlterarSenha" name="formAlterarSenha" method="post" action="usuarios.php?alterar_senha=1&id={ID}">
+        <label for="senha_atual">Senha atual</label>
+        <input type="password" id="senha_atual" name="senha_atual" size="50" />
+        <label for="nova_senha">Nova senha</label>
+        <input type="password" id="nova_senha" name="nova_senha" size="50" />
+        <label for="nova_senha2">Repita a nova senha</label>
+        <input type="password" id="nova_senha2" name="nova_senha2" size="50" />
+        </form>
+    </p>
+</div>
+
+<div id="alterarDados" title="Alterar Dados">
+    <p>
+        <form id="formAlterarDados" name="formAlterarDados" method="post" action="usuarios.php?alterar_dados=1&id={ID}">
+        <label for="nome">Nome</label>
+        <input type="text" name="nome" value="{Nome}" size="50" />
+        <label for="email">E-mail</label>
+        <input type="text" name="email" value="{Email}" size="50" />
+        </form>
+    </p>
+</div>

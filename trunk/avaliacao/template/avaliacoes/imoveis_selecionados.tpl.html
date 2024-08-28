@@ -1,0 +1,98 @@
+<script>
+    $(function() {
+        $( "a, button", ".actions" ).button();
+        
+        $('.excluir').click(function(){
+            var id   = $(this).attr('href');
+            var linha = $(this).parent().parent();
+            $.post('{URL}/avaliacoes_actions.php',
+                {
+                    acao: 'excluir',
+                    imovel: id,
+                    avaliacao: '{AvaliacaoId}'
+                },
+                function(data){
+                    //$('#listaSelecionados').html(data);
+                    $('#tabelaSelecionados').dataTable().fnDeleteRow(linha[0]);
+                    //linha.remove();
+                    $('#listaImoveis').load('{URL}/avaliacoes_lista_imoveis.php?avaliacao={AvaliacaoId}');
+                }
+            );
+            return false;
+        });
+        
+        $('#btRemoverTodos').click(function(){
+                $.post('{URL}/avaliacoes_actions.php',
+                {
+                    acao: 'excluir_todos',
+                    avaliacao: '{AvaliacaoId}'
+                },
+                function(data){
+                    $('#listaSelecionados').html(data);
+                    $('#listaImoveis').load('{URL}/avaliacoes_lista_imoveis.php?avaliacao={AvaliacaoId}');
+                }
+            );
+            return false;
+        });
+        
+        $('#tabelaSelecionados input[type="checkbox"]').click( function() {
+                var id = $(this).val();
+                var checked = $(this).is(':checked');
+                     
+                $.post('{URL}/avaliacoes_actions.php',
+                        {
+                            acao: (checked)?'ativar':'desativar',
+                            imovel: id,
+                            avaliacao: '{AvaliacaoId}'
+                        }
+                 );
+	} );
+        
+        $('.listagem').dataTable({
+            "bJQueryUI": true,
+            "bRetrieve": true,
+            "oLanguage": {
+                "sUrl": "language/pt_BR.txt"
+            },
+            "bStateSave": true,
+            "sPaginationType": "full_numbers"
+        });
+    });
+</script>
+<div class="actions">
+    <button id="btRemoverTodos">Remover Todos</button>
+</div>
+<table id="tabelaSelecionados" class="listagem">
+    <thead>
+        <tr>
+            <td> </td>
+            <td width="30">&nbsp;&nbsp;</td>
+            <td>Tipo Im&oacute;vel</td>
+            <td> </td>
+            <td>Logradouro</td>
+            <td>Bairro</td>
+            <td>Munic&iacute;pio</td>
+            <td> </td>
+            <td width="80"> &nbsp; Data</td>
+            <td width="120">Valor</td>
+            <td class="excluir"></td>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- BEGIN table_row --> 
+        <tr>
+            <td><input type="checkbox" name="ativo[]" value="{ID}" title="Ativar/Desativar" {Ativo} /></td>
+            <td>{ID}</td>
+            <td>{TipoImovel}</td>
+            <td>{Modalidade}</td>
+            <td>{Logradouro}</td>
+            <td>{Bairro}</td>
+            <td>{Municipio}</td>
+            <td>{NaturezaValor}</td>
+            <td>{Data}</td>
+            <td>{Valor}</td>
+            <td class="actions excluir"><a class="excluir" href="{ID}" title="Excluir"><span class="ui-icon ui-icon-minusthick"></span></a></td>
+        </tr>
+        <!-- END table_row -->
+    </tbody>
+</table>

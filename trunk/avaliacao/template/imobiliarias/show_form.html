@@ -1,0 +1,99 @@
+<script>
+    $(function() {
+        $( "input:submit" ).button();
+
+        $("#btExcluir").click(function(){
+            $( "#confirmaExclusao" ).dialog( "open" );
+        });
+
+        $( "#confirmaExclusao" ).dialog({
+            resizable: false,
+            modal: true,
+            autoOpen: false,
+            buttons: {
+                "Confirmar exclusão": function() {
+                    window.location.href = "imobiliarias.php?excluir=1&id={ID}";
+                },
+                Cancel: function() {
+                    $( this ).dialog( "close" );
+                }
+            }
+        });
+        
+        $( "#imobiliariaEmUso" ).dialog({
+            resizable: false,
+            modal: true,
+            width: 400,
+            autoOpen: false,
+            buttons: {
+                "OK": function() {
+                    window.location.href = "imobiliarias.php";
+                }
+            }
+        });
+        
+        {EmUso}
+        
+        $(".fone").mask("(99) 9999-9999");
+        
+        $("#cadastro").validate();
+        
+    });
+</script>
+
+<h1>Cadastro de Imobili&aacute;rias</h1>
+<div class="actions">
+    <a href="imobiliarias.php">Voltar</a>
+
+    <!-- BEGIN BLOCK_EXCLUIR -->
+    <button id="btExcluir">Excluir</button>
+    <!-- END BLOCK_EXCLUIR -->
+
+</div>
+<div style="float: left; width: 100%;">
+    <form class="none" id="cadastro" name="cadastro" action="{Uri}" method="post">
+        <table cellspacing="0" cellpadding="0" border="0" width="100%" id="form">
+            <tr>
+                <td height="20"> &nbsp; </td>
+                <td> &nbsp; </td>
+            </tr>
+            <tr>
+                <td height="20" class="label">&nbsp;</td>
+                <td>                    
+                    <label for="nome">Nome</label>
+                    <input type="text" value="{Nome}" maxlength="50" name="nome" size="70" maxlength="50" class="required" />
+                </td>
+            </tr>
+            <tr>
+                <td class="label">&nbsp;</td>
+                <td>
+                    <label for="endereco">Endere&ccedil;o</label>
+                    <input type="text" name="endereco" maxlength="200" value="{Endereco}" size="80" maxlength="200" />
+                </td>
+            </tr>
+            <tr>
+                <td height="20" class="label">&nbsp;</td>
+                <td>
+                    <label for="fone">Telefone</label>
+                    <input type="text" value="{Fone}" name="fone" size="15" class="fone" />
+                </td>
+            </tr>
+            <tr>
+                <td height="20"> &nbsp; </td>
+                <td> &nbsp; </td>
+            </tr>
+            <tr>
+                <td> &nbsp; </td>
+                <td>&nbsp;<input type="submit" name="{Botao}" value=" Gravar "></td>
+            </tr>
+        </table>
+    </form>
+</div>
+
+<div id="confirmaExclusao" title="Excluir imobiliï¿½ria?">
+    <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>Tem certeza que deseja excluir definitivamente este cadastro?</p>
+</div>
+
+<div id="imobiliariaEmUso" title="N&atilde;o &eacute; poss&iacute;vel excluir!">
+    <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>Não &eacute; possível excluir essa Imobili&aacute;ria.<br />Ela est&aacute; sendo usada em um elemento de pesquisa.</p>
+</div>

@@ -1,0 +1,39 @@
+<script>
+	$(function() {
+            $("#dataIni").datepicker({
+                dateFormat: 'dd/mm/yy',
+                dayNames: ['Domingo','Segunda','Terca','Quarta','Quinta','Sexta','Sabado','Domingo'],
+                dayNamesMin: ['D','S','T','Q','Q','S','S','D'],
+                dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sab','Dom'],
+                monthNames: ['Janeiro','Fevereiro','Marï¿½o','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
+                monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'],
+                nextText: 'Próximo',
+                prevText: 'Anterior'
+            });
+            $("#dataFim").datepicker({
+                dateFormat: 'dd/mm/yy',
+                dayNames: ['Domingo','Segunda','Terca','Quarta','Quinta','Sexta','Sabado','Domingo'],
+                dayNamesMin: ['D','S','T','Q','Q','S','S','D'],
+                dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sab','Dom'],
+                monthNames: ['Janeiro','Fevereiro','Marco','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
+                monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'],
+                nextText: 'Próximo',
+                prevText: 'Anterior'
+            });
+	});
+	</script>
+<fieldset>
+    <input type="hidden" name="classe" id="classe" value="filtro" />
+    <label for="municipios">Munic&iacute;pio</label>
+    <div>{Municipio}</div>
+    <label for="setor">Setor</label>
+    <input type="text" name="setor" id="setor" class="text ui-widget-content ui-corner-all" />
+    <label for="modalidade">Modalidade</label>
+    <input type="text" name="modalidade" id="modalidade" class="text ui-widget-content ui-corner-all" />
+    <label for="imovel_tipo">Tipo de Im&oacute;vel</label>
+    {TipoImovel}
+    <label for="dataIni">A partir de</label>
+    <input type="text" name="dataIni" id="dataIni" class="text ui-widget-content ui-corner-all" />
+    <label for="dataFim">At&eacute;</label>
+    <input type="text" name="dataFim" id="dataFim" class="text ui-widget-content ui-corner-all" />
+</fieldset>

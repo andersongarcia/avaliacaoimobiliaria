@@ -1,0 +1,136 @@
+<script>
+    $(function() {
+
+        $("input[type='submit']").button();
+        $("#btExcluir").click(function(){
+            $( "#confirmaExclusao" ).dialog( "open" );
+        });
+
+        $( "#confirmaExclusao" ).dialog({
+            resizable: false,
+            modal: true,
+            autoOpen: false,
+            buttons: {
+                "Confirmar exclusão": function() {
+                    window.location.href = "tipos_imoveis.php?excluir=1&id={ID}";
+                },
+                Cancel: function() {
+                    $( this ).dialog( "close" );
+                }
+            }
+        });
+        
+        $( "#tipoEmUso" ).dialog({
+            resizable: false,
+            modal: true,
+            width: 400,
+            autoOpen: false,
+            buttons: {
+                "OK": function() {
+                    window.location.href = "tipos_imoveis.php";
+                }
+            }
+        });
+        
+        {EmUso}
+        
+        $( "input[name='forma']" ).change(function(){
+            if($(this).val() == "Terreno")
+                $("#items").hide()
+            else
+                $("#items").show()
+        });
+        
+        $("#cadastro").validate();
+        
+    });
+</script>
+
+<h1>Cadastro de Tipos de Im&oacute;veis</h1>
+<div class="actions">
+    <a href="tipos_imoveis.php">Voltar</a>
+
+    <!-- BEGIN block_delete -->
+    <button id="btExcluir">Excluir</button>
+    <!-- END block_delete -->
+
+</div>
+
+<div style="float: left; width: 100%;">
+    <form class="none" id="cadastro" name="cadastro" action="{Uri}" method="post">
+        <input type="hidden" id="TipoId" name="id" value="{ID}" />
+        <table cellspacing="0" cellpadding="0" border="0" width="100%" id="form">
+            <tr style="font-weight: bold;">
+                <td class="label" height="20"> &nbsp; </td>
+                <td> &nbsp; </td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td><label for="descricao">Descri&ccedil;&atilde;o</label>
+                    <input type="text" id="descricao" name="descricao" value="{Descricao}" size="50" maxlength="50" class="required" /></td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td>&nbsp;<label for="forma">Classifique o tipo de im&oacute;vel que deseja cadastrar</label>
+                    <input type="radio" value="Terreno" id="forma_terrenos" name="forma" {FormaTerrenoSelecionado} /><label class="option">Terreno</label>
+                    <input type="radio" value="Terreno Edificado" id="forma_terreno_edificados" name="forma" {FormaTerrenoEdificadoSelecionado} /><label class="option">Terreno Edificado</label>
+                    <input type="radio" value="Im&oacute;vel em Condom&iacute;nio" id="forma_imovel_em_condominio" name="forma" {FormaImovelEmCondominio} /><label class="option">Im&oacute;vel em Condom&iacute;nio</label>
+                    <input type="radio" value="Im&oacute;vel Rural" id="forma_imovel_rural" name="forma" {FormaImovelRural} /><label class="option">Im&oacute;vel Rural</label>
+                </td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td>
+                    <div id="items">
+                        <label for="forma">Selecione abaixo as informa&ccedil;&otilde;es requiridas para este tipo de im&oacute;vel</label>
+                        <ul class="items">
+                            <li>
+                                <input type="checkbox" name="vagas_de_garagem" value="1" {VagasDeGaragemSelecionado}>
+                                       <label for="vagas_de_garagem" class="inline">Vagas de Garagem</label></li>
+                            <li><input type="checkbox" name="wcs" value="1" {WcsSelecionado}>
+                                       <label for="wcs" class="inline">WCs</label></li>
+                            <li><input type="checkbox" name="dormitorios" value="1" {DormitoriosSelecionado}>
+                                       <label for="dormitorios" class="inline">Dormit&oacute;rios</label></li>
+                            <li><input type="checkbox" name="suites" value="1" {SuitesSelecionado}>
+                                       <label for="suites" class="inline">Su&iacute;tes</label></li>
+                            <li><input type="checkbox" name="armarios" value="1" {ArmariosSelecionado}>
+                                       <label for="armarios" class="inline">Arm&aacute;rios</label></li>
+                            <li><input type="checkbox" name="reformas" value="1" {ReformasSelecionado}>
+                                       <label for="reformas" class="inline">Reformas</label></li>
+                            <li><input type="checkbox" name="andar" value="1" {AndarSelecionado}>
+                                       <label for="andar" class="inline">Andar</label></li>
+                            <li><input type="checkbox" name="elevadores" value="1" {ElevadoresSelecionado}>
+                                       <label for="elevadores" class="inline">Elevadores</label></li>
+                            <li><input type="checkbox" name="frente_fundos" value="1" {FrenteFundosSelecionado}>
+                                       <label for="frente_fundos" class="inline">Frente / Fundos</label></li>
+                            <li><input type="checkbox" name="facesol_sombra" value="1" {FacesolSombraSelecionado}>
+                                       <label for="facesol_sombra" class="inline">Face Sol / Sombra</label></li>
+                            <li><input type="checkbox" name="area_de_lazer" value="1" {AreaDeLazerSelecionado}>
+                                       <label for="area_de_lazer" class="inline">&Aacute;rea de Lazer</label></li>
+                            <li><input type="checkbox" name="piscina" value="1" {PiscinaSelecionado}>
+                                       <label for="piscina" class="inline">Piscina</label></li>
+                            <li><input type="checkbox" name="salao_de_festas" value="1" {SalaoDeFestasSelecionado}>
+                                       <label for="salao_de_festas" class="inline">Sal&atilde;o de Festas</label></li>
+                            <li><input type="checkbox" name="capacidade_de_uso" value="1" {CapacidadeDeUsoSelecionado}>
+                                       <label for="capacidade_de_uso" class="inline">Classe de Capacidade de Uso</label></li>
+                            <li><input type="checkbox" name="situacao_circulacao" value="1" {SituacaoCirculacaoSelecionado}>
+                                       <label for="situacao_circulacao" class="inline">Classe de Situa&ccedil;&atilde;o e Viabilidade de Circula&ccedil;&atilde;o</label></li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td> &nbsp; </td>
+                <td>&nbsp;<input type="submit" id="{botao}" name="{botao}" value="Gravar"></td>
+            </tr>
+        </table>
+    </form>      
+</div>
+
+<div id="confirmaExclusao" title="Excluir tipo de im&oacute;vel?">
+    <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>Tem certeza que deseja excluir definitivamente este cadastro?</p>
+</div>
+
+<div id="tipoEmUso" title="N&atilde;o ï¿½ poss&iacute;vel excluir!">
+    <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>N&atilde;o é poss&iacute;vel excluir esse tipo de im&oacute;vel.<br />Ele est&aacute; sendo usado em um elemento de pesquisa.</p>
+</div>

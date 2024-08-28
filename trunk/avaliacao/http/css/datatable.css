@@ -1,0 +1,57 @@
+.dataTables_wrapper {
+    width: 98%;
+}
+
+.dataTables_wrapper label {
+    text-align: left;
+    padding: 3px;
+}
+
+.dataTables_filter label {
+    text-align: right;
+}
+
+.dataTables_info {
+    text-align: left;
+    padding: 5px;
+    width: 50%;
+}
+
+.dataTables_paginate .fg-button {
+    padding: 3px;
+}
+
+.css_right {
+    float: right;
+}
+
+table.listagem {
+    width: 100%;
+    margin-bottom: 0px;
+    border: 1px solid lightgray;
+}
+
+table.listagem thead tr td {
+    background-image: none;
+    background-color: #ebebeb;
+}
+
+table.listagem tr td {
+    height: 25px;
+    vertical-align: middle;
+    padding-left: 3px;
+    padding-right: 4px;
+}
+
+table.listagem tr:hover {
+    background: #ECFFB3;
+}
+
+table.listagem tr td.alterar, table.listagem tr td.excluir {
+    width: 60px;
+    text-align: center;
+}
+
+table.listagem tr.row_selected {
+    background-color: #9fcfef;
+}

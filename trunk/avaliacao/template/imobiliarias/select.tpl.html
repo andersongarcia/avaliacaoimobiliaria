@@ -1,0 +1,12 @@
+<script type="text/javascript" src="js/combobox.js"></script>
+<script>
+    $(function() {
+        $('#ImobiliariaId').combobox();
+    });
+</script>
+<select id="ImobiliariaId" name="imobiliaria_id" style="width: 250px;">
+    <option value="0">&nbsp;</option>
+    <!-- BEGIN block_sl_imobiliaria -->
+    <option value="{ImobiliariaIdOp}" {ImobiliariaSelecionado}>{ImobiliariaOp}</option>
+    <!-- END block_sl_imobiliaria -->
+</select>

@@ -1,0 +1,30 @@
+<input type="hidden" name="imovel" id="imovel" value="{ID}" />
+<input type="hidden" name="avaliacao" id="avaliacao" value="{Avaliacao}" />
+<center>
+
+    <div class="confirmaExclusao">Confirma a exclus&atilde;o da Avalia&ccedil;&atilde;o abaixo? <br /><br />
+        <a href="avaliacoes.php?excluir=1&id={Avaliacao}">SIM</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <a href="avaliacoes.php">NÃO</a>
+    </div>
+    <br /><br />
+    
+    <h5>Avalia&ccedil;&atilde;o n&ordm;{Avaliacao}</h5>
+<table id="imovelDescription">
+    <tr>
+        <td id="picture">{Foto}</td>
+        <td>&nbsp;</td>
+        <td><b>Im&oacute;vel:</b> {ID} ({Tipo}) <br />
+            <b>Localiza&ccedil;&atilde;o:</b> {Logradouro} - {Bairro} - {Municipio} <br />
+            <b>Valor:</b> {Valor} <br />
+            <b>Setor:</b> {Setor} <br /><br />
+            <table width="60%"><tr><td><b>Terreno:</b></td>
+                    <td><b>&Aacute;rea</b></td><td>=</td><td>{Area} m2</td></tr>
+                <tr><td></td><td><b>Testada</b></td><td>=</td><td>{Testada} m</td></tr></table>
+            
+            <table width="100%"><tr><td><b>Fonte:</b> {Fonte}</td><td><b>C&oacute;digo:</b> {Codigo}</td></tr>
+                <tr><td><b>Contato:</b> {Contato}</td><td><b>Telefone:</b> {Telefone}</td></tr></table>
+        </td>
+    </tr>
+</table>
+<hr width="100%" />
+</center>

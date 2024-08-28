@@ -1,0 +1,181 @@
+/* 
+*    Document   : estilos
+*    Created on : 15/04/2011
+*    Author     : Erick
+*    Description:
+*        Purpose of the stylesheet follows.
+*/
+
+/* 
+*    TODO customize this sample style
+*    Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+
+* {
+	margin:0;
+	padding:0;
+}
+
+/** General Style Info **/
+body {
+	background: #333;
+	color: #fff;
+	font-family:'lucida grande',verdana,helvetica,arial,sans-serif;
+	font-size:90%;
+	margin: 0;
+}
+
+#wrapper {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+}
+ 
+* html #wrapper { background-image: none; } /* IE6 */
+
+#container {
+    width: 100%;
+    margin: 0 auto;
+    position: absolute;
+    
+}
+
+#test {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-attachment: fixed;
+    background: url(../images/transparency.png) repeat center left;
+    z-index: 10000000;
+    text-align: center;
+}
+
+#X {
+    position: relative;
+    top: -15px;
+    left: 700px;
+    width: 30px;
+    border: 0px;
+}
+
+#form_ajax {
+    background: white;
+    border: 1px solid black;
+    margin-top: 30px;
+    width: 700px;
+    color: black;
+    padding: 10px;
+}
+
+#form_ajax div {
+    
+}
+
+.ajax_space {
+    border-top: 1px dotted grey;
+    margin-bottom: 10px;
+    padding-top: 10px;
+}
+
+#form_ajax_title {
+    font-weight: bold;
+}
+
+input, textarea, button, select {
+    font-size: 16px;
+    padding: 5px;
+}
+
+a {
+	color: #ffffff;
+	text-decoration: none;
+	font-weight: bold;
+}
+a:hover {
+	color: #999999;
+	text-decoration:none;
+}
+a img {
+	border:none;
+}
+h1, h2, h3, h4 {
+	font-weight: normal;
+	margin-bottom:0.5em;
+}
+h1 {
+	background:#fff;
+	color: #003d4c;
+	font-size: 100%;
+}
+h2 {
+	background:#fff;
+	color: grey;
+	font-size: 18px;
+        padding: 5px;
+}
+h3 {
+	color: #993;
+	font-size: 165%;
+}
+h4 {
+	color: #993;
+	font-weight: normal;
+}
+ul, li {
+	margin: 0 12px;
+}
+
+/** MENU **/
+
+#menuhor {
+    border:none;
+    margin: 0;
+}
+#menuhor li {
+    list-style: none; 
+    margin: 0;
+    display: inline;
+}
+#menuhor li a {
+    height:1px; /* IE5.0 bug */
+    padding: 3px 1px; 
+    margin:0;
+    border: 1px solid white; 
+    background: #999;
+    text-decoration: none;
+}
+#menuhor li a:link {
+    color: #fff;
+}
+#menuhor li a:visited {
+    color: #fff;
+}
+#menuhor li a:hover {
+    background: #ccc;
+    color: #000; 
+    border-color: #fff;
+}
+
+/** FIM - MENU **/
+
+table td#titulo {
+    font-size: 18px;
+    background: white;
+    color: #555;
+    padding: 5px;
+}
+
+.titulo {
+    font-size: 18px;
+    background: white;
+    color: #555;
+}
+
+#dialog label {
+    display: block;
+}
+#dialog input,textarea {
+    width: 95%;
+}

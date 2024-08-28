@@ -1,0 +1,38 @@
+<script>
+    $(function() {
+        $('.listagem').dataTable( {
+            "bJQueryUI": true,
+            "oLanguage": {
+                "sUrl": "language/pt_BR.txt"
+            },
+            "bPaginate": false,
+            "bFilter": false,
+            "bSort": false,
+            "bInfo": false
+        });
+    });    
+</script>
+<table class="listagem">
+    <thead>
+        <tr>
+            <td width="30"> &nbsp; ID</td>
+            <td> &nbsp; Refer&ecirc;ncia</td>
+            <td> &nbsp; Tipo</td>
+            <td> &nbsp; Local</td>
+            <td> &nbsp; Bairro</td>
+            <td width="180"> &nbsp; Data da Avalia&ccedil;&atilde;o</td>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- BEGIN table_row -->
+        <tr class="h" style="cursor: pointer;" onClick="window.location.href='avaliacoes.php?show=1&imovel={ImovelId}'">
+            <td> &nbsp; {ID}</td>
+            <td> &nbsp; {CodRef}</td>
+            <td> &nbsp; {Tipo}</td>
+            <td> &nbsp; {Local}</td>
+            <td> &nbsp; {Bairro}</td>
+            <td> &nbsp; {DataAvaliacao}</td>
+        </tr>
+        <!-- END table_row -->
+    </tbody>
+</table>

@@ -1,0 +1,616 @@
+<script type="text/javascript" src="{URL}/js/uploadify/swfobject.js"></script>
+<script type="text/javascript" src="{URL}/js/uploadify/jquery.uploadify.v2.1.4.min.js"></script>
+<script>
+    $(function() {
+        
+        $("#alterarFoto").uploadify({
+            'uploader'  : '{URL}/js/uploadify/uploadify.swf',
+            'cancelImg' : '{URL}/js/uploadify/cancel.png',
+            'folder': 'files',
+            'script': 'upload.php',
+            'buttonText': 'Alterar Foto',
+            'scriptData' : {
+                'imovel': $('#imovel_id').val()
+                },
+            'fileDesc': 'Image Files',
+            'fileExt': '*.jpg;*.jpeg;*.gif;*.png',
+            'auto': true,
+            'onComplete': function(event, queueID, fileObj, response, data){
+                $("#alterarFoto").uploadifyClearQueue();
+                atualizarFoto($('#imovel_id').val(), fileObj.type);
+            }
+        });
+        
+        function setCamposDoTipo(tipo_id){
+            $('#dadosDoTipo').load(
+            'get_dados_do_tipo.php?id=' + tipo_id,
+            function(){
+                if($('#dadosDoTipo input[name="forma"]').val() == "Terreno"){
+                    $('#boxConstrucao').hide();
+                }else{
+                    $('#boxConstrucao').show();
+                    $('#dadosDoTipo [id^="show_"]').each(function(){
+                        if($(this).val() == '1')
+                            $('#' + $(this).attr('name').replace('show', 'campo')).show();
+                        else
+                            $('#' + $(this).attr('name').replace('show', 'campo')).hide();
+                    });
+                }
+            });
+        }
+
+        function setMelhoramentosTodos(){
+            if($("input[name*='melhoramentos']").filter(':not(:checked)').length > 0)
+                $("#melhoramentosTodos").attr('checked', false);
+            else
+                $("#melhoramentosTodos").attr('checked', true);
+        }
+        
+        function segundaFrente(){
+            if($("#frentes_multiplas").is(':checked'))
+                $(".2frente").show();
+            else
+                $(".2frente").hide();
+        }
+        
+        function setRemoveArea(){
+            $("#areas_secundarias_conteudo button").click(function(){
+                $(this).parent().parent().remove();
+                return false;
+            });
+        }
+        
+        function openDuplicado() {
+            $("#duplicado").dialog("open");
+        }
+
+        $("#areas_secundarias_add").button();
+        //$( "a", ".actions" ).click(function() { return false; });
+        $("#data_do_evento").datepicker({
+            dateFormat: 'dd/mm/yy',
+            dayNames: ['Domingo','Segunda','Terca','Quarta','Quinta','Sexta','Sabado','Domingo'],
+            dayNamesMin: ['D','S','T','Q','Q','S','S','D'],
+            dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','SÃ¡b','Dom'],
+            monthNames: ['Janeiro','Fevereiro','Marco','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
+            monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'],
+            nextText: 'Próximo',
+            prevText: 'Anterior'
+        });
+        $("#data_da_transacao").datepicker({
+            dateFormat: 'dd/mm/yy',
+            dayNames: ['Domingo','Segunda','Terca','Quarta','Quinta','Sexta','Sabado','Domingo'],
+            dayNamesMin: ['D','S','T','Q','Q','S','S','D'],
+            dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sab','Dom'],
+            monthNames: ['Janeiro','Fevereiro','Marco','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
+            monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'],
+            nextText: 'Próximo',
+            prevText: 'Anterior'
+        });
+        
+        /*$("input[name=valor]").priceFormat({
+            prefix: 'R$ ',
+            centsSeparator: ',',
+            thousandsSeparator: '.'
+        });*/
+
+        //$("input[name=valor]").numeric({allow:",."});
+        $("input[name=valor]").maskMoney({symbol:'R$ ', showSymbol:true, thousands:'.', decimal:',', symbolStay: false});
+        $("input[name=valor_da_transacao]").maskMoney({symbol:'R$ ', showSymbol:true, thousands:'.', decimal:',', symbolStay: false});
+        $(".inteiro").numeric();        
+        $(".medida").numeric({allow:","});
+        $(".medida2").maskMoney({thousands:'.', decimal:','});
+        $(".fone").mask("(99) 99999999?9");
+        $(".data").mask("99/99/9999");
+        $("#setor").numeric({allow:"."}).mask('99.999');
+        
+        $.mask.definitions['~']='[- ]';
+        $.mask.definitions['^']='[-0123456789 ]';
+        $(".location").mask("-^9.999999");
+
+        $("#alterarFoto").click(function(){
+            return false;
+        });
+
+        $("#btExcluir").click(function(){
+            $( "#confirmaExclusao" ).dialog( "open" );
+            return false;
+        });
+
+        $( "#confirmaExclusao" ).dialog({
+            resizable: false,
+            modal: true,
+            autoOpen: false,
+            buttons: {
+                "Confirmar exclusão": function() {
+                    var id   = $("#ImovelId").val();
+                    $.ajax({
+                        url: 'imoveis.php?excluir=1&id={ImovelId}',
+                        success: function(data){
+                            $( "#confirmaExclusao" ).dialog( "close" );
+                            if(data == 'false')
+                                $( "#erroExclusao" ).dialog('open');
+                            else
+                                window.location.href = "imoveis.php?msg=27";
+                        }
+                    });
+                    //window.location.href = 'imoveis.php?excluir=1&id={ImovelId}';
+                    //excluir();
+                },
+                Cancel: function() {
+                    $( this ).dialog( "close" );
+                }
+            }
+        });
+
+        $( "#erroExclusao" ).dialog({
+            modal: true,
+            autoOpen: false,
+            buttons: {
+                "Ok": function() {
+                    $( this ).dialog( "close" );
+                }
+            }
+        });
+        
+        $( "#duplicado" ).dialog({
+            modal: true,
+            autoOpen: false,
+            buttons: {
+                "Ok": function() {
+                    $( this ).dialog( "close" );
+                }
+            }
+        });
+
+        $("#frentes_multiplas").click(function(){
+            segundaFrente();
+        });
+
+        $("#melhoramentosTodos").change(function(){
+            if($(this).is(':checked'))
+                $("input[name*='melhoramentos']").attr('checked', true);
+            else
+                $("input[name*='melhoramentos']").attr('checked', false);
+        });
+
+        if(!('{ImovelId}' > 0)){
+            $("#melhoramentosTodos, input[name*='melhoramentos']").attr('checked', true);
+        }
+
+        $("input[name*='melhoramentos']").change(function(){
+            setMelhoramentosTodos();
+        });
+        
+        $("#opcoesMelhoramentos input[type='checkbox']").click(function(){
+           $("#alterou_m").val('1');
+        });
+        
+        $("select[name='imovel_tipo_id']").change(function(){
+            var selecionado = $("select[name='imovel_tipo_id'] option:selected").val();
+            setCamposDoTipo(selecionado);
+        });
+        
+        $("select[name='area_unidade']").change(function(){
+            var selecionado = $("select[name='area_unidade'] option:selected").val();
+            $("input[name='area']").unmaskMoney();
+            if (selecionado == 'h') {
+                $("input[name='area']").maskMoney({thousands:'.', decimal:',', precision: 4});
+            } else {
+                $("input[name='area']").maskMoney({thousands:'.', decimal:','});
+            }
+        });
+        
+        setRemoveArea();
+        segundaFrente();
+        setMelhoramentosTodos();
+        setCamposDoTipo('{ImovelTipoId}');
+        {Duplicado}
+        
+        $("#formImovel").validate({
+            rules: {
+                valor: {
+                    required: function(element) {
+                        return $("input[name='data_do_evento']").val().length > 0;
+                    }
+                },
+                data_do_evento: {
+                    required: function(element) {
+                        return $("input[name='valor']").val().length > 0;
+                    }
+                },
+                valor_da_transacao: {
+                    required: function(element) {
+                        return $("input[name='data_da_transacao']").val().length > 0;
+                    }
+                },
+                data_da_transacao: {
+                    required: function(element) {
+                        return $("input[name='valor_da_transacao']").val().length > 0;
+                    }
+                }
+            }
+        });
+       
+    });
+</script>
+
+<h1>Cadastro de Im&oacute;veis</h1>
+
+<form class="none" id="formImovel" name="cadastro" action="{PostAction}" method="post" enctype="multipart/form-data">
+    <div class="actions">
+
+        <!-- BEGIN block_save2 -->
+        <input type="submit" name="{botao2}" value=" Gravar ">
+        <!-- END block_save2 -->
+
+        <!-- BEGIN block_delete -->
+
+        <button type="button" id="btExcluir">Excluir</button>
+
+        <a href="{URL}/{ShowAll}.php?duplicar=1&id={ImovelId}">Duplicar</a>
+        <!-- END block_delete -->
+
+        <a href="{URL}/{ShowAll}.php">Voltar</a>
+
+    </div>
+
+    <div style="float: left; width: 100%;">
+        <input type="hidden" name="imovel_id" id="imovel_id" value="{ImovelId}" />
+        <input type="hidden" name="foto_url" id="foto_url" value="{FotoUrl}" />
+
+        <div id="dadosDoTipo">
+        </div>
+
+        <div class="container_12 newForm" style="text-align: left; border-top: 1px solid #ddd;">
+            <div class="grid_8">
+                <div class="quadro" style="margin-top: 15px;">
+                    <h2>Dados de localiza&ccedil;&atilde;o</h2><br />
+                    <!-- BEGIN block_id -->
+                    <div class="block_2">
+                        <label for="id">ID</label>
+                        <input type="text" name="id" maxlength="10" disabled="true" value="{ImovelId}" size="4" />
+                        &nbsp;&nbsp;&nbsp;
+                    </div>
+                    <!-- END block_id -->
+                    <!-- BEGIN block_referencia -->
+                    <div class="block_2">
+                        <label for="codigo_referencia">Refer&ecirc;ncia</label>
+                        <input type="text" name="codigo_referencia" maxlength="20" value="{CodigoReferencia}" size="9" />
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                    </div>
+                    <!-- END block_referencia -->
+                    <div class="block_3">
+                        <label for="imovel_tipo_id">Tipo de Im&oacute;vel</label>
+                        <select name="imovel_tipo_id" style="width: 200px;">
+                            <!-- BEGIN block_sl_imovel_tipo -->
+                            <option value="{ImovelTipoIdOp}" {ImovelTipoSelecionado}>{ImovelTipoOp}</option>
+                            <!-- END block_sl_imovel_tipo -->
+                        </select>
+                    </div>
+                    <div>
+                        <label for="indice_fiscal">&Iacute;ndice Fiscal</label>
+                        <input type="text" name="indice_fiscal" maxlength="20" value="{IndiceFiscal}" size="17" class="medida" />
+                    </div>
+                    <div>
+                        <label for="indice_fiscal_ano">Ano</label>
+                        {IndiceFiscalAno}
+                    </div>
+                    <div>
+                        <label for="logradouro">Logradouro</label>
+                        <input type="text" value="{Logradouro}" maxlength="200" name="logradouro" style="width: 700px;" /> 
+                    </div>
+                    <div>
+                        <label for="numero">N&ordm;</label>
+                        <input type="text" size="3" name="numero" maxlength="5" value="{Numero}" />
+                    </div>
+                    <div>
+                        <label for="complemento">Complemento</label>
+                        <input type="text" value="{Complemento}" maxlength="100" name="complemento" style="width: 750px;" />
+                    </div>
+                    <div class="block_3">
+                        <label for="bairro">Bairro</label>
+                        <input type="text" value="{Bairro}" maxlength="45" name="bairro" size="24" style="width: 260px;" />&nbsp;&nbsp;
+                    </div>
+                    <div class="block_2">
+                        <label for="municipio_id">Munic&iacute;pio</label>
+                        <span id="municipio_select">{__select_municipio__}</span>
+                        <!--<a href="javascript:;" class="new_insert" onclick="carregar('municipio')">+</a> &nbsp;&nbsp;-->
+                    </div>
+                    <div class="block_3">
+                        <label for="nome_local">Nome do Edif&iacute;cio/Condom&iacute;nio</label>
+                        <input type="text" value="{NomeLocal}" maxlength="100" name="nome_local" style="width: 260px;" /> &nbsp;
+                    </div>
+                    <div>
+                        <label for="setor">Setor</label>
+                        <input type="text" id="setor" value="{Setor}" maxlength="6" name="setor" size="5" class="setor" />&nbsp;
+                    </div>
+                    <div style="margin-left: 20px;">
+                        <label for="quadra">Quadra</label>
+                        <input type="text" value="{Quadra}" maxlength="5" name="quadra" size="5" />&nbsp;
+                    </div>
+                    <div style="margin-left: 40px;">
+                        <label for="zona_id">Zona</label>
+                        <span id="zona_select">{__select_zonas__}</span>
+                        <!--<a href="javascript:;" class="new_insert" onclick="carregar('zona')">+</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-->
+                        &nbsp;
+                    </div>
+                    <div style="margin-left: 40px;">
+                        <label for="lat">Latitude</label>
+                        <input type="text" value="{Latitude}" class="location" name="lat" size="7" maxlength="10" />&ordm;&nbsp;
+                    </div>
+                    <div style="margin-left: 20px;">
+                        <label for="lng">Longitude</label>
+                        <input type="text" value="{Longitude}" class="location" name="lng" size="7" maxlength="10" />&ordm;
+                    </div>
+                    <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                </div>
+            </div>
+            <div class="grid_4">
+                <div id="picture" style="width: 100%;"><img class="foto" src="files/{FotoUrl}" width="100%" /></div>
+                <div class="actions subactions">
+                    <form name="altera_foto" method="post">
+                        <input type="file" name="alterarFoto" id="alterarFoto" />
+                    </form>
+                </div>
+            </div>
+            <div class="grid_12"></div>
+        </div>
+
+        <div class="container_12 newForm" style="text-align: left;">
+            <div class="grid_12">
+                <div class="quadro">
+                    <h2>Dados econ&ocirc;micos</h2><br />
+                    <div class="block_6">
+                        <label for="modalidade">Modalidade</label>
+                        <input type="radio" name="modalidade" value="Locacao" {SelecionadoModalidadeLocacao} /><label class="option">Locac&atilde;o</label>
+                        <input type="radio" name="modalidade" value="Venda" {SelecionadoModalidadeVenda} /><label class="option">Venda</label>
+                    </div>
+                    <div class="block_2" style="width: 160px; padding-left: 150px;">
+                        <!-- BEGIN block_natureza -->
+                        <label for="natureza">Natureza</label>
+                        <input type="radio" name="natureza" value="Oferta" {SelecionadoNaturezaOferta} /><label class="option">Oferta</label>
+                        <input type="radio" name="natureza" value="Opiniao" {SelecionadoNaturezaOpiniao} /><label class="option">Opini&atilde;o</label>
+                        <!-- END block_natureza -->&nbsp;
+                    </div>
+                    <div id="divValor" class="block_2" style="width: 160px;">
+                        <label for="valor">Valor </label>
+                        <input type="text" name="valor" value="{Valor}" maxlength="17" size="15" class="valor" />
+                        <!-- BEGIN block_dados_avaliacao --><br />
+                        <label for="valor_da_transacao">Valor da transa&ccedil;&atilde;o</label>
+                        <input type="text" name="valor_da_transacao" value="{ValorDaTransacao}" maxlength="17" size="15" class="valor" />
+                        <!-- END block_dados_avaliacao -->
+                    </div>
+                    <div class="block_2" id="divDataValor" style="width: 100px; padding-left: 10px;">
+                        <label for="data_do_evento">Data</label>
+                        <input type="text" name="data_do_evento" id="data_do_evento" class="data" value="{DataDoEvento}" maxlength="17" size="9" />
+                        <!-- BEGIN block_dados_avaliacao2 --><br />
+                        <label for="data_da_transacao">Data</label>
+                        <input type="text" name="data_da_transacao" id="data_da_transacao" class="data" value="{DataDaTransacao}" maxlength="17" size="9" />
+                        <!-- END block_dados_avaliacao2 -->
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="container_12 newForm" style="text-align: left;">
+            <div class="grid_12">
+                <div class="quadro">
+                    <h2>Dados do Terreno</h2><br />
+                    <div class="block_3">
+                        <label for="area">&Aacute;rea</label>
+                        <input type="text" value="{Area}" name="area" size="10" class="medida2" />
+                        <select name="area_unidade">
+                            <option value="m" {AreaUnidadeM}>m&sup2;</option>
+                            <option value="h" {AreaUnidadeH}>hectare</option>
+                        </select> &nbsp;
+                        <label for="testada">Testada</label>
+                        <input type="text" value="{Testada}" name="testada" size="10" class="medida2" /> m 
+                    </div>
+                    <div class="block_2">
+                        <div class="options">
+                            <input type="hidden" name="regular" value="0" />
+                            <input type="checkbox" name="regular" value="1" {RegularSelecionado} />
+                                   <label for="regular" class="inline">Regular</label>
+                        </div>
+                        <div class="options">
+                            <input type="hidden" name="frentes_multiplas" value="0" />
+                            <input type="checkbox" name="frentes_multiplas" id="frentes_multiplas" value="1" {FrentesMultiplasSelecionado} />
+                                   <label for="frentes_multiplas" class="inline">Frentes M&uacute;ltiplas</label>
+                        </div>
+                    </div>
+                    <div class="block_4">
+                        <div class="2frente">
+                            <div id="Testada2frente">
+                                <label for="testada2">Testada da 2&ordf; frente</label>
+                                <input type="text" value="{Testada2}" name="testada2" size="11" class="medida2" /> m &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            </div><br />
+                            <div id="IndiceFiscal2frente">
+                                <label for="indice_fiscal_2">&Iacute;ndice Fiscal da 2&ordf; frente</label>
+                                <input type="text" name="indice_fiscal_2" value="{IndiceFiscal2}" maxlength="11" size="10" class="medida" /> &nbsp;
+                                <b>Ano</b>
+                                {IndiceFiscal2Ano}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="block_2">
+                        <div>
+                            <label for="topografia_id">Topografia</label>
+                            <span id="topografia_select">{__select_topografias__}</span>
+                            <a href="javascript:;" class="new_insert" onclick="carregar('topografia')">+</a>
+                        </div>
+                    </div>
+                    <div id="opcoesMelhoramentos" class="block_12">
+                        <label for="melhoramentos">Melhoramentos</label>
+                        <ul class="options">
+                            <li><input class="melhor" id="melhoramentosTodos" type="checkbox" value="1" /><label for="melhoramentosTodos" class="option"><strong>Todos</strong></label></li>
+                            <!-- BEGIN block_ck_melhoramentos -->
+                            <li>
+                                <input class="melhor" type="checkbox" name="melhoramentos[]" value="{MelhoramentoId}" {MelhoramentoSelecionado} /><label class="option">{MelhoramentoOp}</label>
+                                <!-- END block_ck_melhoramentos -->
+                        </ul>
+                        <input type="hidden" name="alterou_m" id="alterou_m" value="0" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container_12 newForm" style="text-align: left;">
+            <div class="grid_12">
+                <div id="boxConstrucao" class="quadro">
+                    <h2>Dados de Benfeitorias</h2>
+                    <br />
+                    <div class="block_6">
+                        <label for="idade">Idade:</label>
+                        <input type="text" value="{Idade}" maxlength="11" name="idade" size="5" class="inteiro" /> Anos
+                        <label for="estados_de_conservacao_id">Estado de Conserva&ccedil;&atilde;o</label>
+                        <span id="estado_conservacao_select">{__select_estados_de_conservacao__}</span>
+                        <!--<a href="javascript:;" class="new_insert" onclick="carregar('estado_conservacao')">+</a>-->
+                    </div>
+                    <div class="block_6">
+                        <label for="padrao_construcao_principal_id">Padr&atilde;o de Benfeitoria Principal</label>
+                        {__select_padrao_principal__}
+                        <b>&Aacute;rea</b> <input type="text" value="{AreaConstrucaoPrincipal}" name="area_construcao_principal" size="6" class="medida" /> m&sup2;
+                        <label>&Aacute;reas Secund&aacute;rias</label>
+                        <div id="areas_secundarias_conteudo">
+                            {__areas_secundarias__}
+                        </div>
+                        <button href="javascript:;" id="areas_secundarias_add">Adicionar &Aacute;rea Secund&aacute;ria</button>
+                    </div>
+                    <div id="campo_vagas_de_garagem" class="block_2">
+                        <label for="vagas_de_garagem">Vagas de Garagem</label>
+                        <input type="text" value="{VagasDeGaragem}" name="vagas_de_garagem" maxlength="3" size="3" class="inteiro" />
+                    </div>
+                    <div id="campo_wcs" class="block_2">
+                        <label for="wcs">WCs</label>
+                        <input type="text" value="{Wcs}" maxlength="3" name="wcs" size="3" class="inteiro" />
+                    </div>
+                    <div id="campo_dormitorios" class="block_2">
+                        <label for="dormitorios">Dormit&oacute;rios</label>
+                        <input type="text" value="{Dormitorios}" maxlength="3" name="dormitorios" size="3" class="inteiro" />
+                    </div>
+                    <div id="campo_suites" class="block_2">
+                        <label for="suites">Su&iacute;tes</label>
+                        <input type="text" value="{Suites}" maxlength="3" name="suites" size="3" class="inteiro" />
+                    </div>
+                    <div id="campo_armarios" class="block_2">
+                        <label for="armarios">Arm&aacute;rios</label>
+                        <input type="radio" value="Sim" name="armarios" {ArmariosSim} /><label class="option">Sim</label>
+                        <input type="radio" value="Nao" name="armarios" {ArmariosNao} /><label class="option">N&atilde;o</label>
+                    </div>
+                    <div id="campo_reformas" class="block_2">
+                        <label for="reformas">Reformas</label>
+                        <input type="radio" value="Sim" name="reformas" {ReformasSim} /><label class="option">Sim</label>
+                        <input type="radio" value="Nao" name="reformas" {ReformasNao} /><label class="option">N&atilde;o</label>
+                    </div>
+                    <div id="campo_andar" class="block_2">
+                        <label for="andar">Andar</label>
+                        <input type="text" value="{Andar}" maxlength="3" name="andar" size="3" class="inteiro" />
+                    </div>
+                    <div id="campo_elevadores" class="block_2">
+                        <label for="elevadores">Elevadores</label>
+                        <input type="text" value="{Elevadores}" maxlength="3" name="elevadores" size="3" class="inteiro" />
+                    </div>
+                    <div id="campo_frente_fundos" class="block_4">
+                        <label for="frente_fundos">Frente / Fundos</label>
+                        <input type="radio" value="Frente" name="frente_fundos" {FrenteFundosFrente} /><label class="option">Frente</label>
+                        <input type="radio" value="Fundos" name="frente_fundos" {FrenteFundosFundos} /><label class="option">Fundos</label>
+                        <input type="radio" value="Indiferente" name="frente_fundos" {FrenteFundosIndiferente} /><label class="option">Indiferente</label>
+                    </div>
+                    <div id="campo_facesol_sombra" class="block_4">
+                        <label for="facesol_sombra">Face Sol / Sombra</label>
+                        <input type="radio" value="Face Sol" name="facesol_sombra" {FacesolSombraFaceSol} /><label class="option">Face Sol</label>
+                        <input type="radio" value="Sombra" name="facesol_sombra" {FacesolSombraSombra} /><label class="option">Sombra</label>
+                        <input type="radio" value="Indiferente" name="facesol_sombra" {FacesolSombraIndiferente} /><label class="option">Indiferente</label>
+                    </div>
+                    <div id="campo_area_de_lazer" class="block_2">
+                        <label for="area_de_lazer">&Aacute;rea de Lazer</label>
+                        <input type="radio" value="Sim" name="area_de_lazer" {AreaDeLazerSim} /><label class="option">Sim</label>
+                        <input type="radio" value="Nao" name="area_de_lazer" {AreaDeLazerNao} /><label class="option">N&atilde;o</label>
+                    </div>
+                    <div id="campo_piscina" class="block_2">
+                        <label for="piscina">Piscina</label>
+                        <input type="radio" value="Sim" name="piscina" {PiscinaSim} /><label class="option">Sim</label>
+                        <input type="radio" value="Nao" name="piscina" {PiscinaNao} /><label class="option">N&atilde;o</label>
+                    </div>
+                    <div id="campo_salao_de_festas" class="block_2">
+                        <label for="salao_de_festas">Sal&atilde;o de Festas</label>
+                        <input type="radio" value="Sim" name="salao_de_festas" {SalaoDeFestasSim} /><label class="option">Sim</label>
+                        <input type="radio" value="Nao" name="salao_de_festas" {SalaoDeFestasNao} /><label class="option">N&atilde;o</label>
+                    </div>
+                    <div id="campo_capacidade_de_uso" class="block_3">
+                        <label for="capacidade_de_uso">Classe de Capacidade de Uso</label>
+                        <input type="text" value="{CapacidadeDeUso}" maxlength="20" name="capacidade_de_uso" size="20" />
+                    </div>
+                    <div id="campo_situacao_circulacao" class="block_5">
+                        <label for="situacao_circulacao">Classe de Situa&ccedil;&atilde;o e Viabilidade de Circula&ccedil;&atilde;o</label>
+                        <input type="text" value="{SituacaoCirculacao}" maxlength="20" name="situacao_circulacao" size="20" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- BEGIN block_fonte_de_informacao -->
+        <div class="container_12 newForm" style="text-align: left;">
+            <div class="grid_12">
+                <div class="quadro">
+                    <h2>Fonte de Informa&ccedil;&atilde;o</h2>
+                    <br />
+                    <div class="block_4">
+                        <label for="imobiliaria_id">Imobili&aacute;ria</label>
+                        <span id="imobiliaria_select">{__select_imobiliarias__}</span>
+                        <a href="javascript:;" class="new_insert" onclick="carregar('imobiliaria')">+</a>
+                    </div>
+                    <div class="block_3">
+                        <label for="imobiliaria_ref">Cod. Refer&ecirc;ncia</label>
+                        <input type="text" value="{ImobiliariaRef}" maxlength="15" name="imobiliaria_ref" style="width: 150px;" /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                    </div>
+                    <div class="block_3">
+                        <label for="fonte_de_informacao">Informante</label>
+                        <input type="text" value="{FonteDeInformacao}" maxlength="100" name="fonte_de_informacao" style="width: 200px;" /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                    </div>
+                    <div class="block_2">
+                        <label for="fonte_de_informacao_telefone">Telefone</label>
+                        <input type="text" value="{FonteDeInformacaoTelefone}" maxlength="15" name="fonte_de_informacao_telefone" style="width: 140px;" class="fone" /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                    </div>
+                </div>
+            </div>
+        </div>    
+        <!-- END block_fonte_de_informacao -->
+
+        <div class="container_12 newForm" style="text-align: left;">
+            <div class="grid_12">
+                <div class="quadro">
+                    <h2>Observa&ccedil;&otilde;es</h2><br />
+                    <textarea rows="4" style="width: 100%;" name="observacoes">{Observacoes}</textarea>
+                </div>
+            </div>
+        </div>    
+
+        <!-- BEGIN block_save -->
+        <div class="container_12 newForm">
+            <div class="actions subactions">
+                <input type="submit" name="{botao}" value=" Gravar ">
+            </div>
+        </div>
+        <!-- END block_save -->
+
+    </div>
+</form>
+
+<div id="confirmaExclusao" title="Excluir imóvel?">
+    <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>Tem certeza que deseja excluir definitivamente este cadastro?</p>
+</div>
+
+
+<div id="erroExclusao" title="Erro ao excluir imóvel">
+    <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>
+        <strong>Voc&ecirc; n&atilde;o pode excluir este im&oacute;vel.</strong><br /><br /> Verifique se ele n&atilde;o est&aacute; sendo utilizado por alguma avalia&ccedil;&atilde;o.</p>
+</div>
+
+<div id="duplicado" title="Im&oacute;vel duplicado">
+    <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>
+        <strong>Im&oacute;vel duplicado com sucesso.</strong></p>
+</div>
+
+

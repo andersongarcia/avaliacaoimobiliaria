@@ -1,0 +1,36 @@
+<script>
+    $(function() {
+   
+        $('.listagem').dataTable({
+            "bJQueryUI": true,
+            "bRetrieve": true,
+            "oLanguage": {
+                "sUrl": "language/pt_BR.txt"
+            },
+            "bStateSave": true,
+            "sPaginationType": "full_numbers"
+        });
+    });
+</script>
+<table class="listagem">
+    <thead>
+        <tr>
+            <td width="30">&nbsp;&nbsp;</td>
+            <td> &nbsp; Tipo Im&oacute;vel</td>
+            <td> &nbsp; Logradouro</td>
+            <td> &nbsp; Bairro</td>
+            <td> &nbsp; Munic&iacute;pio</td>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- BEGIN table_row --> 
+        <tr>
+            <td> &nbsp; {ID}</td>
+            <td> &nbsp; {TipoImovel}</td>
+            <td> &nbsp; {Logradouro}</td>
+            <td> &nbsp; {Bairro}</td>
+            <td> &nbsp; {Municipio}</td>
+        </tr>
+        <!-- END table_row -->
+    </tbody>
+</table>

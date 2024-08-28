@@ -1,0 +1,26 @@
+<script type="text/javascript" src="js/datatable_config.js"></script>
+
+<h1>Cadastro de Usu&aacute;rios</h1>
+<div class="actions">
+    <a href="usuarios.php?show=1">Novo</a>
+</div>
+<table class="listagem">
+    <thead>
+        <tr>
+            <td> &nbsp; Nome</td>
+            <td> &nbsp; E-mail</td>
+            <td> &nbsp; Permiss&atilde;o</td>
+            <td width="90"> &nbsp; Ativo</td>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- BEGIN table_row --> 
+        <tr class="h" style="cursor: pointer;" onClick="window.location.href='usuarios.php?show=1&id={ID}'">
+            <td> &nbsp; {Nome}</td>
+            <td> &nbsp; {Email}</td>
+            <td> &nbsp; {Permissao}</td>
+            <td align="center"> &nbsp; {Ativo}</td>
+        </tr>
+        <!-- END table_row -->
+    </tbody>
+</table>

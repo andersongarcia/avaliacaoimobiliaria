@@ -1,0 +1,10 @@
+<script>
+    $(function() {
+        $('[name="filtro_modalidade"]').change(function(){
+            $('[name="filtro_valor[]"]').val($(this).val());
+        });
+    });
+</script>
+<input type="radio" name="filtro_modalidade" value="Locação" /><label class="option">Loca&ccedil;&atilde;o</label>
+<input type="radio" name="filtro_modalidade" value="Venda" checked="true" /><label class="option">Venda</label>
+<input type="hidden" name="filtro_valor[]" value="Venda" />

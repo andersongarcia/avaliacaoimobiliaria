@@ -1,0 +1,83 @@
+<script>
+    $(function() {
+        $( "a, button", ".actions" ).button();
+    
+        $('.listagem').dataTable({
+            "bJQueryUI": true,
+            "iDisplayLength": 50,
+            "oLanguage": {
+                "sUrl": "language/pt_BR.txt"
+            },
+            "bStateSave": true,
+            "sPaginationType": "full_numbers",
+            "aoColumns": [ 
+                null, null, null, null, null, null,
+                { "bSortable": false },
+                { "bSortable": false }
+            ]            
+        });
+        
+        $('.excluir').click(function(){
+            $('#avaliacao_del_id').val($(this).attr('href'));
+            $( "#confirmaExclusao" ).dialog("open");
+            return false;
+        });
+
+        $( "#confirmaExclusao" ).dialog({
+            resizable: false,
+            modal: true,
+            autoOpen: false,
+            buttons: {
+                "Confirmar exclusão": function() {
+                    var id   = $("#avaliacao_del_id").val();
+                    window.location.href = 'avaliacoes.php?excluir=1&id=' + id;
+                    //excluir();
+                },
+                Cancel: function() {
+                    $( this ).dialog( "close" );
+                }
+            }
+        });
+    });
+</script>
+<input type="hidden" name="tipoDeObjeto" value="avaliacao" />
+<h1>Cadastro de Avalia&ccedil;&otilde;es</h1>
+<div class="actions">
+    <!-- BEGIN block_add -->
+    <a href="avaliacoes.php?new=1">Nova</a>
+    <!-- END block_add -->
+    <input type="hidden" id="busca2" name="busca2" value="1" />
+</div>
+<table class="listagem">
+    <thead>
+        <tr>
+            <td width="42"> &nbsp; ID</td>
+            <td> &nbsp; Refer&ecirc;ncia</td>
+            <td> &nbsp; Tipo</td>
+            <td> &nbsp; Local</td>
+            <td> &nbsp; Bairro</td>
+            <td width="180"> &nbsp; Data da Avalia&ccedil;&atilde;o</td>
+            <td class="alterar">Alterar</td>
+            <td class="excluir">Excluir</td>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- BEGIN table_row -->
+        <tr class="h" style="cursor: pointer;" onClick="window.location.href='avaliacoes.php?show=1&imovel={ImovelId}'">
+            <td> &nbsp; {ID}</td>
+            <td> &nbsp; {CodRef}</td>
+            <td> &nbsp; {Tipo}</td>
+            <td> &nbsp; {Local}</td>
+            <td> &nbsp; {Bairro}</td>
+            <td> &nbsp; {DataAvaliacao}</td>
+            <td class="actions alterar">{Alterar}</td>
+            <td class="actions excluir">{Excluir}</td>
+        </tr>
+        <!-- END table_row -->
+    </tbody>
+</table>
+
+<div id="confirmaExclusao" title="Excluir imóvel?">
+    <input type="hidden" id="avaliacao_del_id" value="" />
+    <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>Tem certeza que deseja excluir definitivamente este cadastro?</p>
+</div>

@@ -1,0 +1,10 @@
+<script>
+    $(function() {
+        $('[name="filtro_natureza"]').change(function(){
+            $('[name="filtro_valor[]"]').val($(this).val());
+        });
+    });
+</script>
+<input type="radio" name="filtro_natureza" value="Oferta" checked="true" /><label class="option">Oferta</label>
+<input type="radio" name="filtro_natureza" value="Opinião" /><label class="option">Opini&atilde;o</label>
+<input type="hidden" name="filtro_valor[]" value="Oferta" />

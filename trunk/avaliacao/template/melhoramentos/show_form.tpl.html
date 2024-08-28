@@ -1,0 +1,65 @@
+<script>
+    $(function() {
+
+        $("input[type='submit']").button();
+        $("#btExcluir").click(function(){
+            $( "#confirmaExclusao" ).dialog( "open" );
+        });
+
+        $( "#confirmaExclusao" ).dialog({
+            resizable: false,
+            modal: true,
+            autoOpen: false,
+            buttons: {
+                "Confirmar exclusão": function() {
+                    window.location.href = "melhoramentos.php?excluir=1&id={ID}";
+                },
+                Cancel: function() {
+                    $( this ).dialog( "close" );
+                }
+            }
+        });
+        
+        $("#cadastro").validate();
+        
+    });
+</script>
+
+<h1>Cadastro de Melhoramentos</h1>
+<div class="actions">
+    <a href="melhoramentos.php">Voltar</a>
+
+    <!-- BEGIN block_delete -->
+    <button id="btExcluir">Excluir</button>
+    <!-- END block_delete -->
+
+</div>
+
+<div style="float: left; width: 100%;">
+    <form class="none" id="cadastro" name="cadastro" action="{Uri}" method="post">
+        <input type="hidden" id="Id" name="id" value="{ID}" />
+        <table cellspacing="0" cellpadding="0" border="0" width="100%" id="form">
+            <tr style="font-weight: bold;">
+                <td class="label" height="20"> &nbsp; </td>
+                <td> &nbsp; </td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td><label for="descricao">Nome</label>
+                    <input type="text" id="nome" name="descricao" value="{Descricao}" size="50" maxlength="45" class="required" /></td>
+            </tr>
+            <tr style="font-weight: bold;">
+                <td class="label" height="20"> &nbsp; </td>
+                <td> &nbsp; </td>
+            </tr>
+            <tr>
+                <td> &nbsp; </td>
+                <td>&nbsp;<input type="submit" id="{botao}" name="{botao}" value="Gravar"></td>
+            </tr>
+        </table>
+    </form>      
+</div>
+
+<div id="confirmaExclusao" title="Excluir Item de melhoramento?">
+    <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>Tem certeza que deseja excluir definitivamente este cadastro?</p>
+</div>

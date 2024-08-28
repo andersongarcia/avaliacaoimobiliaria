@@ -1,0 +1,89 @@
+<script>
+    $(function() {
+
+        $("input[type='submit']").button();
+        $("#btExcluir").click(function(){
+            $( "#confirmaExclusao" ).dialog( "open" );
+        });
+
+        $( "#confirmaExclusao" ).dialog({
+            resizable: false,
+            modal: true,
+            autoOpen: false,
+            buttons: {
+                "Confirmar exclusão": function() {
+                    window.location.href = "zonas.php?excluir=1&id={ID}";
+                },
+                Cancel: function() {
+                    $( this ).dialog( "close" );
+                }
+            }
+        });
+        
+        $( "#zonaEmUso" ).dialog({
+            resizable: false,
+            modal: true,
+            width: 400,
+            autoOpen: false,
+            buttons: {
+                "OK": function() {
+                    window.location.href = "zonas.php";
+                }
+            }
+        });
+        
+        $("#cadastro").validate();
+        
+        {EmUso}
+        
+    });
+</script>
+
+<h1>Cadastro de Zonas</h1>
+<div class="actions">
+    <a href="zonas.php">Voltar</a>
+
+    <!-- BEGIN block_delete -->
+    <button id="btExcluir">Excluir</button>
+    <!-- END block_delete -->
+
+</div>
+
+<div style="float: left; width: 100%;">
+    <form class="none" id="cadastro" name="cadastro" action="{Uri}" method="post">
+        <input type="hidden" id="Id" name="id" value="{ID}" />
+        <table cellspacing="0" cellpadding="0" border="0" width="100%" id="form">
+            <tr style="font-weight: bold;">
+                <td class="label" height="20"> &nbsp; </td>
+                <td> &nbsp; </td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td>&nbsp;<label for="codigo">C&oacute;digo</label>
+                    <input type="text" id="codigo" name="codigo" value="{Codigo}" size="5" maxlength="5" /></td>
+                </td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td><label for="descricao">Descri&ccedil;&atilde;o</label>
+                    <input type="text" id="descricao" name="descricao" value="{Descricao}" size="50" maxlength="50" class="required" /></td>
+            </tr>
+            <tr style="font-weight: bold;">
+                <td class="label" height="20"> &nbsp; </td>
+                <td> &nbsp; </td>
+            </tr>
+            <tr>
+                <td> &nbsp; </td>
+                <td>&nbsp;<input type="submit" id="{botao}" name="{botao}" value="Gravar"></td>
+            </tr>
+        </table>
+    </form>      
+</div>
+
+<div id="confirmaExclusao" title="Excluir zona?">
+    <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>Tem certeza que deseja excluir definitivamente este cadastro?</p>
+</div>
+
+<div id="zonaEmUso" title="N&atilde;o &eacute; possível excluir!">
+    <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>N&atilde;o &eacute; poss&iacute;vel excluir essa Zona.<br />Ela est&aacute; sendo usada em um elemento de pesquisa.</p>
+</div>

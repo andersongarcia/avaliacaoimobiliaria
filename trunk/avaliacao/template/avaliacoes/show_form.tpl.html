@@ -1,0 +1,135 @@
+<script type="text/javascript" src="{JS_URL}/jquery.open.js"></script>
+<script>
+    $(function() {
+        function carregarFiltroAtivo(){
+            var imovel_id = '{ImovelId}';
+            $.post('{URL}/avaliacoes_filtros.php', 
+            {
+                acao: 'filtro_ativo',
+                imovel_id: imovel_id
+            },
+            function(data){
+                $('#filtroAtivo').html(data);
+            }
+        );
+        }
+        
+        function resetCampoFiltro(){
+            $("#filtroSelecao select option:first").attr('selected','selected');
+            $('#filtroCampo').empty();
+            $('#filtroIncluir').hide();
+        }
+        
+        carregarFiltroAtivo();
+        
+        $('#filtroIncluir').hide();
+        
+        $('#filtroSelecao select').change(function(){
+            $('#filtroCampo').load('{URL}/avaliacoes_filtros.php?acao=carregar&campo=' + $('#filtroSelecao select').val());
+            //$('#filtroCampo').load('{URL}/../template/avaliacoes/filtro/' + $('#filtroSelecao select').val() + '.tpl.html');
+            $('#filtroIncluir button').button();
+            $('#filtroIncluir').show();
+        });
+
+        $('#filtroIncluir button#btIncluir').click(function(){
+            if($('#formFiltroCampo').valid()){
+                var chave = $('select[name="filtro_chave"]').val();
+                var valor = []
+                $.each($('[name="filtro_valor[]"]'), function(){
+                    valor.push($(this).val()) ;
+                });
+                var imovel_id = '{ImovelId}';
+                $.post('{URL}/avaliacoes_filtros.php', 
+                    {
+                        acao: 'incluir',
+                        imovel_id: imovel_id,
+                        chave: chave,
+                        valor: valor
+                    },
+                    function(data){
+                        $('#listaImoveis').html(data);
+                        carregarFiltroAtivo();
+                        resetCampoFiltro();
+                    }
+                );
+            }
+            return false;
+        });
+
+        $('#filtroIncluir button#btCancelar').click(function(){
+            resetCampoFiltro();
+        });
+        
+        $('#abrirRelatorio, #abrirRelatorioWord').open({
+            width: 620,
+            height: 768,
+            scrollbars: true
+        });
+
+        $("#formFiltroCampo").validate();
+        
+        jQuery.extend(jQuery.validator.messages, {
+            required: 'Campo requerido'
+        });        
+
+    });
+</script>
+
+<h1>Avalia&ccedil;&atilde;o {CodRef}</h1>
+
+<div class="actions">
+    <a id="abrirRelatorio" href="{URL}/avaliacoes_relatorio.php?imovel_id={ImovelId}&formato=html">Visualizar relat&oacute;rio</a>
+    <a id="abrirRelatorioWord" href="{URL}/avaliacoes_relatorio.php?imovel_id={ImovelId}&formato=word">Exportar p/ Word</a>
+    <a id="abrirRelatorioExcel" href="{URL}/avaliacoes_relatorio.php?imovel_id={ImovelId}&formato=excel">Exportar p/ Excel</a>
+</div>
+<br /><br />
+<div style="float: left; width: 100%;">
+    <div class="container_12">
+        <div class="grid_6">
+            <div id="quadroFiltroAtivo" class="quadro">
+                <h2>Filtro Ativo</h2><br />
+                <div id="filtroAtivo">
+                    {ListaElementosPesquisa}
+                </div>
+            </div>
+        </div>
+        <div class="grid_6">
+            <div id="quadroFiltro" class="quadro">
+                <h2>Adicionar Filtro</h2><br />
+                <div id="filtroSelecao" class="block_5">
+                    <select name="filtro_chave">
+                        <option>Selecione informa&ccedil;&atilde;o a ser filtrada...</option>
+                        <!-- BEGIN block_campo_filtro -->
+                        <option value="{NomeCampo}">{LabelCampo}</option>
+                        <!-- END block_campo_filtro -->
+                    </select>
+                </div>
+                <form id="formFiltroCampo" name="formFiltroCampo">
+                    <div id="filtroCampo" class="block_5">
+
+                    </div>
+                <div id="filtroIncluir" class="block_5" style="text-align: right;">
+                    <button id="btIncluir" type="submit">Incluir</button>
+                    <button id="btCancelar" type="button">Cancelar</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="container_12">
+        <div class="quadro" style="margin: 10px; width: 1170px;">
+            <h2>Elementos de Pesquisa</h2><br />
+            <div id="listaImoveis" class="block_12">
+                {ListaImoveis}
+            </div>
+        </div>
+    </div>
+    <div class="container_12">
+        <div class="quadro" style="margin: 10px; width: 1170px;">
+            <h2>Im&oacute;veis Selecionados</h2><br />
+            <div id="listaSelecionados" class="block_12">
+                {ListaImoveisSelecionados}
+            </div>
+        </div>
+    </div>
+</div>

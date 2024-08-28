@@ -1,0 +1,95 @@
+<script>
+    $(function() {
+
+        $("input[type='submit']").button();
+        $("#btExcluir").click(function(){
+            $( "#confirmaExclusao" ).dialog( "open" );
+        });
+
+        $( "#confirmaExclusao" ).dialog({
+            resizable: false,
+            modal: true,
+            autoOpen: false,
+            buttons: {
+                "Confirmar exclusï¿½o": function() {
+                    window.location.href = "estados_conservacoes.php?excluir=1&id={ID}";
+                },
+                Cancel: function() {
+                    $( this ).dialog( "close" );
+                }
+            }
+        });
+        
+        $( "#estadoConservacaoEmUso" ).dialog({
+            resizable: false,
+            modal: true,
+            width: 400,
+            autoOpen: false,
+            buttons: {
+                "OK": function() {
+                    window.location.href = "estados_conservacoes.php";
+                }
+            }
+        });
+        
+        {EmUso}
+        
+        $(".numerico").numeric({allow:","});
+        
+        $("#cadastro").validate();
+    });
+</script>
+
+<h1>Cadastro de Estado de Conserva&ccedil;&atilde;o</h1>
+<div class="actions">
+    <a href="estados_conservacoes.php">Voltar</a>
+
+    <!-- BEGIN block_delete -->
+    <button id="btExcluir">Excluir</button>
+    <!-- END block_delete -->
+
+</div>
+
+<div style="float: left; width: 100%;">
+    <form class="none" id="cadastro" name="cadastro" action="{Uri}" method="post">
+        <input type="hidden" id="ClassificacaoId" name="id" value="{ID}" />
+        <table cellspacing="0" cellpadding="0" border="0" width="100%" id="form">
+            <tr style="font-weight: bold;">
+                <td class="label" height="20"> &nbsp; </td>
+                <td> &nbsp; </td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td>&nbsp;<label for="classificacao">Classifica&ccedil;&atilde;o</label>
+                    <input type="text" id="classificacao" maxlength="1" name="classificacao" value="{Classificacao}" size="10" class="required"></td>
+                </td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td><label for="descricao">Descri&ccedil;&atilde;o</label>
+                    <input type="text" id="descricao" maxlength="50" name="descricao" value="{Descricao}" size="75" class="required"></td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td><label for="coeficiente_depreciacao">Coeficiente de Deprecia&ccedil;&atilde;o</label>
+                    <input type="text" id="coeficiente_depreciacao" class="numerico" maxlength="20" name="coeficiente_depreciacao" value="{Coeficiente}" size="75"></td>
+            </tr>
+            <tr style="font-weight: bold;">
+                <td class="label" height="20"> &nbsp; </td>
+                <td> &nbsp; </td>
+            </tr>
+            <tr>
+                <td> &nbsp; </td>
+                <td>&nbsp;<input type="submit" id="{botao}" name="{botao}" value="Gravar"></td>
+            </tr>
+        </table>
+    </form>      
+</div>
+
+<div id="confirmaExclusao" title="Excluir estado de conserva&ccedil;&atilde;o?">
+    <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>Tem certeza que deseja excluir definitivamente este cadastro?</p>
+</div>
+
+<div id="estadoConservacaoEmUso" title="N&atilde;o &eacute; poss&iacute;vel excluir!">
+    <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>Não &eacute; poss&iacute;vel excluir esse Estado de Coserva&ccedil;&atilde;o.<br />Ele est&aacute; sendo usado em um elemento de pesquisa.</p>
+</div>

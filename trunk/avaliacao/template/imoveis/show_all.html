@@ -1,0 +1,73 @@
+<script>
+    $(function() {
+        $( "a, button", ".actions" ).button();
+    
+        $('.listagem').dataTable({
+            "aaSorting": [],
+            "bJQueryUI": true,
+            "iDisplayLength": 50,
+            "oLanguage": {
+                "sUrl": "language/pt_BR.txt"
+            },
+            "bStateSave": true,
+            "sPaginationType": "full_numbers"
+        });
+        
+        $("#radioModalidade").buttonset();
+        $( ".selector" ).button({ icons: {primary:'ui-icon-gear',secondary:'ui-icon-triangle-1-s'} });
+        
+        $("#radio1").click(function(){
+            $(window.document.location).attr('href','imoveis.php?filtro_mod=1');
+        });
+        $("#radio2").click(function(){
+            $(window.document.location).attr('href','imoveis.php?filtro_mod=2');
+        });
+        $("#radio3").click(function(){
+            $(window.document.location).attr('href','imoveis.php');
+        });
+    });
+    
+</script>
+
+<h1>Cadastro de Im&oacute;veis</h1>
+<div class="actions">
+    <!-- BEGIN block_add -->
+    <div id="radioModalidade">
+    <input type="radio"{Checked1} id="radio1" name="radio" /><label for="radio1">Venda</label>
+    <input type="radio"{Checked2} id="radio2" name="radio" /><label for="radio2">Loca&ccedil;&atilde;o</label>
+    <input type="radio"{Checked3} id="radio3" name="radio" /><label for="radio3">Todos</label>
+    </div>
+    <!--<a href="imoveis.php?exportar=1" target="_blank">Exportar p/ Excel</a>-->
+    <a href="imoveis.php?show=1">Novo</a>
+    <!-- END block_add -->
+</div>
+<table width="100%" id="form" class="listagem">
+    <thead>
+        <tr>
+            <td width="44">ID</td>
+            <td> &nbsp; Tipo</td>
+            <td> </td>
+            <td> &nbsp; Logradouro</td>
+            <td> &nbsp; Bairro</td>
+            <td width="120"> &nbsp; Munic&iacute;pio</td>
+            <td> </td>
+            <td width="80"> &nbsp; Data</td>
+            <td width="120"> &nbsp; Valor</td>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- BEGIN table_row --> 
+        <tr class="h" style="cursor: pointer;" onClick="window.location.href='imoveis.php?show=1&id={ID}'">
+            <td>{ID}</td>
+            <td>{TipoImovel}</td>
+            <td>{Modalidade}</td>
+            <td>{Logradouro}</td>
+            <td>{Bairro}</td>
+            <td>{Municipio}</td>
+            <td>{NaturezaValor}</td>
+            <td>{Data}</td>
+            <td id="formValor">{Valor}</td>
+        </tr>
+        <!-- END table_row -->
+    </tbody>
+</table>

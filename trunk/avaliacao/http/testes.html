@@ -1,0 +1,67 @@
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <script type="text/javascript" src="http://localhost/avaliacao/trunk/http/js/jquery.js"></script>
+        <script type="text/javascript" src="http://localhost/avaliacao/trunk/http/js/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="http://localhost/avaliacao/trunk/http/js/jquery.fileupload.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+            var id = $('#imovel_id').val();
+            
+            $("#alterarFoto").fileUpload({
+                    'uploader': 'images/uploader.swf',
+                    'cancelImg': 'images/cancel_1.png',
+                    'folder': 'files',
+                    'script': 'upload2.php',
+                    'scriptData' : '{imovel:'+id+'}',
+                    'auto': true,
+                    'onComplete': function(event, queueID, fileObj, response, data){
+                        $("#alterarFoto").fileUploadClearQueue();
+                        alterarFoto($('#imovel_id').val(), fileObj.type);
+                    }
+            });
+    });
+</script>
+<style>
+body {
+        font: 12px/18px Arial, Helvetica, sans-serif;
+}
+.fileUploadQueueItem {
+        font: 11px Verdana, Geneva, sans-serif;
+        background-color: #F5F5F5;
+        border: 3px solid #E5E5E5;
+        margin-top: 5px;
+        padding: 10px;
+        width: 300px;
+}
+.fileUploadQueueItem .cancel {
+        float: right;
+}
+.fileUploadProgress {
+        background-color: #FFFFFF;
+        border-top: 1px solid #808080;
+        border-left: 1px solid #808080;
+        border-right: 1px solid #C5C5C5;
+        border-bottom: 1px solid #C5C5C5;
+        margin-top: 10px;
+        width: 100%;
+}
+.fileUploadProgressBar {
+        background-color: #0099FF;
+}
+</style>
+    </head>
+    <body>
+        <form action="upload.php" method="POST" name="form">
+            <input type="file" name="alterarFoto" id="alterarFoto" />
+            <input type="hidden" name="imovel_id" id="imovel_id" value="0" />
+            <input type="submit" name="enviar" value="Enviar" />
+        </form>
+    </body>
+</html>

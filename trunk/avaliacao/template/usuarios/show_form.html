@@ -1,0 +1,136 @@
+<script>
+    $(function() {
+
+        $("#btExcluir").click(function(){
+            $( "#confirmaExclusao" ).dialog( "open" );
+        });
+
+        $( "#confirmaExclusao" ).dialog({
+            resizable: false,
+            modal: true,
+            autoOpen: false,
+            buttons: {
+                "Confirmar exclusão": function() {
+                    window.location.href = "usuarios.php?excluir=1&id={ID}";
+                },
+                Cancel: function() {
+                    $( this ).dialog( "close" );
+                }
+            }
+        });
+        
+        $('#formUsuario').validate({
+            rules:{
+                nome:{
+                    required: true,
+                    minlength: 3,
+                    maxlength: 60
+                },
+                email: {
+                    required: true,
+                    email: true
+                },
+                confirma_senha:{
+                    equalTo: "#senha"
+                }
+            },
+            messages:{
+                nome:{
+                    required: "O campo nome é obrigatorio.",
+                    minlength: "O campo nome deve conter no mínimo 3 caracteres.",
+                    minlength: "O campo nome deve conter no máximo 60 caracteres."
+                },
+                email: {
+                    required: "O campo email é obrigatorio.",
+                    email: "O campo email deve conter um email válido."
+                },
+                senha: {
+                    required: "O campo senha é obrigatorio."
+                },
+                confirma_senha:{
+                    required: "O campo confirmação de senha é obrigatorio.",
+                    equalTo: "O campo confirmação de senha deve ser identico ao campo senha."
+                }
+            }
+ 
+        });
+        
+    });
+</script>
+
+<h1>Cadastro de Usuários</h1>
+<div class="actions">
+    <a href="usuarios.php">Voltar</a>
+
+    <!-- BEGIN BLOCK_EXCLUIR -->
+    <button id="btExcluir">Excluir</button>
+    <!-- END BLOCK_EXCLUIR -->
+
+</div>
+<div style="float: left; width: 100%;">
+    <form id="formUsuario" class="none" name="cadastro" action="{Uri}" method="post">
+        <table cellspacing="0" cellpadding="0" border="0" width="100%" id="form">
+            <tr>
+                <td height="20"> &nbsp; </td>
+                <td> &nbsp; </td>
+            </tr>
+            <tr>
+                <td height="20" class="label">&nbsp;</td>
+                <td>
+                    <label for="nome">Nome</label>
+                    <input type="text" value="{Nome}" maxlength="60" name="nome" size="50">
+                </td>
+            </tr>
+            <tr>
+                <td class="label">&nbsp;</td>
+                <td>
+                    <label for="email">Email</label>
+                    <input type="text" name="email" maxlength="60" value="{Email}" size="50">
+                </td>
+            </tr>
+            <tr>
+                <td class="label">&nbsp;</td>
+                <td>
+                    <label for="password">Senha</label>
+                    <input type="password" name="senha" maxlength="60" id="senha" value="" size="50">
+                </td>
+            </tr>
+            <tr>
+                <td height="20"> &nbsp; </td>
+                <td>
+                    <label for="password">Confirme a senha</label>
+                    <input type="password" name="confirma_senha" maxlength="60" id="confirma_senha" value="" size="50">
+                </td>
+            </tr>
+            <tr>
+                <td height="20"> &nbsp; </td>
+                <td>
+                    <label for="permissao">Permiss&atilde;o</label>
+                    <input type="radio" value="Administrador" id="permissao_administrador" name="permissao" {PermissaoAdministradorSelecionado} /><label class="option">Administrador</label>
+                    <input type="radio" value="Cadastro" id="permissao_cadastro" name="permissao" {PermissaoCadastroSelecionado} /><label class="option">Cadastro</label>
+                    <input type="radio" value="Consulta" id="permissao_consulta" name="permissao" {PermissaoConsultaSelecionado} /><label class="option">Consulta</label>
+                </td>
+            </tr>
+            <tr>
+                <td height="20"> &nbsp; </td>
+                <td>
+                    <label for="ativo">Ativo</label>
+                    <input type="radio" value="1" id="ativo" name="ativo" {AtivoSelecionado} /><label class="option">Sim</label>
+                    <input type="radio" value="2" id="ativo" name="ativo" {AtivoNSelecionado} /><label class="option">N&atilde;o</label>
+                </td>
+            </tr>
+            <tr>
+                <td height="20"> &nbsp; </td>
+                <td> &nbsp; </td>
+            </tr>
+            <tr>
+                <td> &nbsp; </td>
+                <td class="actions">&nbsp;<input type="submit" name="{Botao}" value=" Gravar " />
+            </tr>
+        </table>
+    </form>
+</div>
+
+<div id="confirmaExclusao" title="Excluir usuário?">
+    <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>Tem certeza que deseja excluir definitivamente este cadastro?</p>
+</div>

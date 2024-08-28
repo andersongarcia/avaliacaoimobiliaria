@@ -1,0 +1,99 @@
+/* 
+    Document   : temp
+    Created on : 20/07/2011, 16:33:15
+    Author     : Anderson
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/* 
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+
+root { 
+    display: block;
+}
+
+body {
+    background: #ddd;
+}
+
+input[type="checkbox"] {
+    height: 10px;
+    margin: 0px;
+    margin-top: 20px;
+    padding: 0px;
+}
+
+#wrapper {
+    background: #fff;
+    width: 990px;
+    margin: 0 auto;
+    height: 720px;
+    padding: 5px;
+}
+
+.buttons {
+    float: right;
+}
+
+.buttons ul li {
+    display: inline;
+    list-style: none;
+}
+
+label {
+    padding: 5px;
+    font-weight: bold;
+    display: block;
+}
+label.inline {
+    display: inline;
+    margin-right: 15px;
+}
+
+#form{
+    position: relative;
+}
+
+.box
+{
+    margin: 15px 5px 0px 0px;
+    border: #3c5a86 1px dashed;
+    padding: 5px;
+    color: #000000;
+    float: left;
+}
+
+.box h2
+{
+    margin: 0px 0px -12px 5px;
+    position: relative;
+    top: -12px;
+    border: #3c5a86 1px solid;
+    padding-top: 3px;
+    padding-bottom: 2px;
+    padding-left: 5px;
+    padding-right: 5px;
+    font-size: 12px;
+    font-weight: bold;
+    display: inline;
+    background-color: #EEEEEE;
+    float: left;
+}
+
+.box div {
+    float: left;
+}
+
+.clear {
+    clear: both;
+}
+
+#boxLocalizacao {
+}
+
+#boxFoto {
+    margin-top: -1px;
+}
